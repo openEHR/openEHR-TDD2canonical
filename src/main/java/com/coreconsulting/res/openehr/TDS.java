@@ -43,7 +43,7 @@ public class TDS extends XML {
     }
 
     public String getTemplateId() {
-        String templateId = getXPathAsString("/schema[1]/element[1]/complexType[1]/attribute[@name='template_id']/@fixed");
+        String templateId = getXPathAsString("//attribute[@name='template_id'][1]/@fixed");
         log.debug("parsed template_id=\"" + templateId + "\" from the TDS");
         return templateId;
     }

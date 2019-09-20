@@ -3,6 +3,8 @@ package com.coreconsulting.res.openehr;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -21,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class XML {
@@ -79,6 +83,20 @@ public class XML {
             log.error("error opening the XML file", e);
             e.printStackTrace();
         }
+    }
+
+    public static List<Element> getChildElements(Node node) {
+        List<Element> elements = new ArrayList<>();
+
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE)
+                elements.add((Element) child);
+        }
+
+        return elements;
+
     }
 
     public String getXPathAsString(String xpath) {
