@@ -6,14 +6,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -21,7 +21,6 @@ import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +29,9 @@ import java.util.List;
 public class XML {
 
     @Getter
-    protected Document xml;
-
-    @Getter
     static protected XPath xpath = XPathFactory.newInstance().newXPath();
-
+    @Getter
+    protected Document xml;
     DocumentBuilder builder;
 
     private XML() {
@@ -99,13 +96,30 @@ public class XML {
 
     }
 
-    public String getXPathAsString(String xpath) {
+    public static String toString(Document document) {
         try {
-            return this.xpath.compile(xpath).evaluate(xml);
-        } catch (XPathExpressionException e) {
-            log.warn("malformed XPath expression", e);
+
+
+            final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+            final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
+            final LSSerializer writer = impl.createLSSerializer();
+
+            writer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE);
+            writer.getDomConfig().setParameter("xml-declaration", true);
+
+            return writer.writeToString(document);
+        } catch (Exception e) {
+            log.error("error serializing the XML document", e);
             return null;
         }
+    }
+
+    public String getXPathAsString(String xpath) {
+        NodeList nodes = getXPathAsNodeList(xpath);
+        if (nodes.getLength() == 0)
+            return null;
+        else
+            return nodes.item(0).getTextContent();
     }
 
     public NodeList getXPathAsNodeList(String xpath) {
@@ -120,23 +134,6 @@ public class XML {
     @Override
     public String toString() {
         return toString(xml);
-    }
-
-    public static String toString(Document document) {
-        try {
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(document), new StreamResult(writer));
-            log.debug("serialized the XML document");
-            return writer.toString();
-        } catch (TransformerConfigurationException e) {
-            log.error("error serializing the XML document");
-            return null;
-        } catch (TransformerException e) {
-            log.error("error serializing the XML document");
-            return null;
-        }
     }
 
 

@@ -42,12 +42,6 @@ public class TDS extends XML {
         return cache.get(templateId);
     }
 
-    public String getTemplateId() {
-        String templateId = getXPathAsString("//attribute[@name='template_id'][1]/@fixed");
-        log.debug("parsed template_id=\"" + templateId + "\" from the TDS");
-        return templateId;
-    }
-
     public static void loadCache() {
         File folder = new File("./src/main/resources/templates");
         for (File template : folder.listFiles()) {
@@ -56,6 +50,12 @@ public class TDS extends XML {
             cache.put(templateId, tds);
             log.debug("loaded schema " + template.getName() + " with template_id=\"" + templateId + "\" into cache");
         }
+    }
+
+    public String getTemplateId() {
+        String templateId = getXPathAsString("//attribute[@name='template_id'][1]/@fixed");
+        log.debug("parsed template_id=\"" + templateId + "\" from the TDS");
+        return templateId;
     }
 
 }
