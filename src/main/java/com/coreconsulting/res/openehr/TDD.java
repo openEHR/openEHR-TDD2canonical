@@ -188,7 +188,11 @@ public class TDD extends XML {
     }
 
     protected void transformActivity(Document document, Element element) {
-        //TODO
+        document.renameNode(element, null, "activities");
+
+        List<Element> children = XML.getChildElements(element);
+        element.removeChild(children.get(1));
+        element.insertBefore(children.get(1), children.get(3));
     }
 
     protected void transformAdminEntry(Document document, Element element) {
@@ -272,7 +276,10 @@ public class TDD extends XML {
         List<Element> dataChildren = XML.getChildElements(data);
         boolean hasOrigin = false;
         for (Element child : dataChildren) {
-            if (child.getNodeName().equals("origin")) {
+            if (child.getNodeName().equals("name")) {
+                continue;
+            }
+            else if (child.getNodeName().equals("origin")) {
                 hasOrigin = true;
             } else {
                 document.renameNode(child, null, "events");
@@ -288,7 +295,20 @@ public class TDD extends XML {
     }
 
     protected void transformPointEvent(Document document, Element element) {
-        //TODO
+        Element name = null;
+        for (Element child : XML.getChildElements(element)) {
+            if (child.getNodeName().equals("name")) {
+                name = child;
+                break;
+            }
+        }
+
+        for (Element child : XML.getChildElements(name)) {
+            if (child.getNodeName().equals("value")) {
+                child.setTextContent("ANY_EVENT");
+                break;
+            }
+        }
     }
 
 }
