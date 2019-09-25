@@ -121,7 +121,7 @@ public class TDD extends XML {
             type = getTDS().getXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='type'][1]/@fixed");
 
         String _type = type;
-        log.debug("transforming node = {} [@nodeId = {}, @type = {}", () -> node.getNodeName(), () -> nodeId,
+        log.debug("transforming node = {} [@nodeId = {}, @type = {}]", () -> node.getNodeName(), () -> nodeId,
                 () -> _type);
 
         transformLocatable((Element) node, nodeId, type);
@@ -162,7 +162,7 @@ public class TDD extends XML {
 
     protected void transformLocatable(Element element, String nodeId, String type) {
         log.trace("transformLocatable({}, {}, {})", () -> element.getNodeName(), () -> nodeId, () -> type);
-        log.debug("setting @archetype_node_id = {} and @type = {} for {}", () -> nodeId, () -> type,
+        log.trace("setting @archetype_node_id = {} and @type = {} for {}", () -> nodeId, () -> type,
                 () -> element.getNodeName());
         element.setAttribute("archetype_node_id", nodeId);
         if (type != null)
@@ -180,7 +180,7 @@ public class TDD extends XML {
             }
 
             Element _reference = reference;
-            log.debug("adding child archetype_details before {}", () -> _reference.getNodeName());
+            log.trace("adding child archetype_details before {}", () -> _reference.getNodeName());
             Document document = element.getOwnerDocument();
             Element archetypeDetails = document.createElement("archetype_details");
             element.insertBefore(archetypeDetails, reference);
@@ -207,7 +207,7 @@ public class TDD extends XML {
         document.renameNode(element, null, "activities");
 
         List<Element> children = XML.getChildElements(element);
-        log.debug("{}", () -> "reversing children timing and description");
+        log.trace("{}", () -> "reversing children timing and description");
         element.removeChild(children.get(1));
         element.insertBefore(children.get(1), children.get(3));
     }
@@ -225,14 +225,14 @@ public class TDD extends XML {
             String nodeName = child.getNodeName();
             if (nodeName.equals("name") || nodeName.equals("archetype_details"))
                 continue;
-            log.debug("renaming {} to items", () -> child.getNodeName());
+            log.trace("renaming {} to items", () -> child.getNodeName());
             document.renameNode(child, null, "items");
         }
     }
 
     protected void transformComposition(Element element) {
         log.trace("transformComposition({})", () -> element.getNodeName());
-        log.debug("renaming {} to composition", () -> element.getNodeName());
+        log.trace("renaming {} to composition", () -> element.getNodeName());
         Document document = element.getOwnerDocument();
         document.renameNode(element, null, "composition");
 
@@ -241,7 +241,7 @@ public class TDD extends XML {
             Node child = children.get(i);
             if (child.getNodeName().equals("context"))
                 break;
-            log.debug("renaming {} to content", () -> child.getNodeName());
+            log.trace("renaming {} to content", () -> child.getNodeName());
             document.renameNode(child, null, "content");
         }
     }
@@ -252,7 +252,7 @@ public class TDD extends XML {
         List<Element> children = XML.getChildElements(element);
         for (Element child : children) {
             if (child.getNodeName().equals("value")) {
-                log.debug("setting @type to {}", () -> type);
+                log.trace("setting @type to {}", () -> type);
                 child.setAttribute("xsi:type", type);
                 break;
             }
@@ -279,12 +279,12 @@ public class TDD extends XML {
         // não foram necessárias transformações especializadas até o momento
         List<Element> children = XML.getChildElements(element);
         if (children.size() > 0) {
-            log.debug("adding child name[value=ITEM_TREE] before {}", () -> children.get(0).getNodeName());
+            log.trace("adding child name[value=ITEM_TREE] before {}", () -> children.get(0).getNodeName());
             insertNameBeforeElement(element, children.get(0), "ITEM_TREE");
         }
         Document document = element.getOwnerDocument();
         for (Element child : children) {
-            log.debug("renaming {} to items", () -> child.getNodeName());
+            log.trace("renaming {} to items", () -> child.getNodeName());
             document.renameNode(child, null, "items");
         }
     }
@@ -300,7 +300,7 @@ public class TDD extends XML {
                 break;
             }
         }
-        log.debug("setting @type to {}", () -> "HISTORY");
+        log.trace("setting @type to {}", () -> "HISTORY");
         data.setAttribute("type", "HISTORY");
         insertNameAsFirstChild(data, "HISTORY");
 
@@ -313,12 +313,12 @@ public class TDD extends XML {
             } else if (child.getNodeName().equals("origin")) {
                 hasOrigin = true;
             } else {
-                log.debug("renaming {} to events", () -> child.getNodeName());
+                log.trace("renaming {} to events", () -> child.getNodeName());
                 document.renameNode(child, null, "events");
             }
         }
         if (hasOrigin == false) {
-            log.debug("adding child origin[value=now() before {}", () -> dataChildren.get(1).getNodeName());
+            log.trace("adding child origin[value=now() before {}", () -> dataChildren.get(1).getNodeName());
             Element origin = document.createElement("origin");
             data.insertBefore(origin, dataChildren.get(1));
             Element value = document.createElement("value");
@@ -338,7 +338,7 @@ public class TDD extends XML {
         }
         for (Element child : XML.getChildElements(name)) {
             if (child.getNodeName().equals("value")) {
-                log.debug("renaming name/value from {} to ANY_EVENT", () -> child.getTextContent());
+                log.trace("renaming name/value from {} to ANY_EVENT", () -> child.getTextContent());
                 child.setTextContent("ANY_EVENT");
                 break;
             }
