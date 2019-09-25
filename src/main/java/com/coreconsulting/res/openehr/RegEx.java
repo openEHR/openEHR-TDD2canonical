@@ -1,24 +1,29 @@
 package com.coreconsulting.res.openehr;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Slf4j
+@Log4j2
 public class RegEx {
 
     public static String getFirstMatch(String string, String regex) {
+        log.trace("getFirstMatch({}, {})", () -> string, () -> regex);
         Matcher matcher = Pattern.compile(regex).matcher(string);
-        if (matcher.matches())
-            return matcher.group(1);
-        else
+        if (matcher.matches()) {
+            String firstMatch = matcher.group(1);
+            return firstMatch;
+        } else {
             return null;
+        }
     }
 
     public static List<String> getMatches(String string, String regex) {
+        log.trace("getMatches({}, {})", () -> string, () -> regex);
+
         List<String> matches = new ArrayList<String>();
 
         Matcher matcher = Pattern.compile(regex).matcher(string);

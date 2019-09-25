@@ -1,7 +1,7 @@
 package com.coreconsulting.res.openehr;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -22,10 +22,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class XML {
 
     @Getter
@@ -35,9 +36,9 @@ public class XML {
     DocumentBuilder builder;
 
     private XML() {
+        log.trace("XML({})", () -> "");
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            log.debug("created the DOM builder and XPath compiler/evaluator");
         } catch (ParserConfigurationException e) {
             log.error("error creating the DOM builder", e);
         }
@@ -45,9 +46,10 @@ public class XML {
 
     public XML(File file) {
         this();
+        log.trace("XML({})", () -> file.getAbsolutePath());
         try {
             xml = builder.parse(file);
-            log.debug("parsed the XML document from file");
+            log.debug("{}", () -> "parsed the XML document from file");
         } catch (SAXException e) {
             log.error("error parsing the XML file", e);
         } catch (IOException e) {
@@ -58,9 +60,10 @@ public class XML {
 
     public XML(String string) {
         this();
+        log.trace("XML({})", () -> "...");
         try {
-            xml = builder.parse(new ByteArrayInputStream(string.getBytes("UTF-8")));
-            log.debug("parsed the XML document from string");
+            xml = builder.parse(new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8)));
+            log.debug("{}", () -> "parsed the XML document from string");
         } catch (SAXException e) {
             log.error("error parsing the XML file", e);
         } catch (IOException e) {
@@ -71,9 +74,10 @@ public class XML {
 
     public XML(URI uri) {
         this();
+        log.trace("XML({})", () -> uri);
         try {
             xml = builder.parse(uri.toString());
-            log.debug("parsed the XML document from URI");
+            log.debug("{}", () -> "parsed the XML document from URI");
         } catch (SAXException e) {
             log.error("error parsing the XML file", e);
         } catch (IOException e) {
@@ -83,7 +87,8 @@ public class XML {
     }
 
     public static List<Element> getChildElements(Node node) {
-        List<Element> elements = new ArrayList<>();
+        log.trace("getChildElements({})", () -> node.getNodeName());
+        List<Element> elements = new ArrayList<Element>();
 
         NodeList children = node.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
@@ -97,9 +102,8 @@ public class XML {
     }
 
     public static String toString(Document document) {
+        log.trace("toString({})", () -> document.getNodeName());
         try {
-
-
             final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
             final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
             final LSSerializer writer = impl.createLSSerializer();
@@ -107,7 +111,8 @@ public class XML {
             writer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE);
             writer.getDomConfig().setParameter("xml-declaration", true);
 
-            return writer.writeToString(document);
+            String asString = writer.writeToString(document);
+            return asString;
         } catch (Exception e) {
             log.error("error serializing the XML document", e);
             return null;
@@ -115,18 +120,23 @@ public class XML {
     }
 
     public String getXPathAsString(String xpath) {
+        log.trace("getXPathAsString({})", () -> xpath);
         NodeList nodes = getXPathAsNodeList(xpath);
-        if (nodes.getLength() == 0)
+        if (nodes.getLength() == 0) {
             return null;
-        else
-            return nodes.item(0).getTextContent();
+        } else {
+            String value = nodes.item(0).getTextContent();
+            return value;
+        }
     }
 
     public NodeList getXPathAsNodeList(String xpath) {
+        log.trace("getXPathAsNodeList({})", () -> xpath);
         try {
-            return (NodeList) this.xpath.compile(xpath).evaluate(xml, XPathConstants.NODESET);
+            NodeList nodes = (NodeList) XML.xpath.compile(xpath).evaluate(xml, XPathConstants.NODESET);
+            return nodes;
         } catch (XPathExpressionException e) {
-            log.warn("malformed XPath expression", e);
+            log.error("malformed XPath expression", e);
             return null;
         }
     }
@@ -135,6 +145,5 @@ public class XML {
     public String toString() {
         return toString(xml);
     }
-
 
 }
