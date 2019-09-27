@@ -19,6 +19,10 @@ public class TDD extends XML {
     protected TDS tds;
     protected String templateId;
 
+    public static final String OPENEHR_NS = "http://schemas.openehr.org/v1";
+    public static final String OPENEHR_NS_LOCATION = "https://specifications.openehr.org/releases/1.0/its/XML-schema/Composition.xsd";
+    public static final String OPENEHR_XSI_LOCATION = OPENEHR_NS + " " + OPENEHR_NS_LOCATION;
+
     public TDD(File file) {
         super(file);
         log.trace("TDD({})", () -> file.getAbsolutePath());
@@ -89,6 +93,7 @@ public class TDD extends XML {
         DocumentBuilder builder;
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
             Document rm = builder.newDocument();
             Node root = rm.importNode(xml.getDocumentElement(), true);
             rm.appendChild(root);
@@ -96,7 +101,7 @@ public class TDD extends XML {
 
             transformNode(root, new StringBuilder("/schema[1]/element[1]"));
             log.debug("{}", () -> "transformed the TDD into a COMPOSITION");
-            
+
             return rm;
         } catch (ParserConfigurationException e) {
             log.error("error creating the DOM builder", e);
@@ -124,36 +129,38 @@ public class TDD extends XML {
         log.debug("transforming node = {} [@nodeId = {}, @type = {}]", () -> node.getNodeName(), () -> nodeId,
                 () -> _type);
 
-        transformLocatable((Element) node, nodeId, type);
+        Element element = (Element) node;
+        transformLocatable(element, nodeId, type);
 
         if (type == null) {
             return;
         } else if (type.equals("ACTION")) {
-            transformAction((Element) node);
+            transformAction(element);
         } else if (type.equals("ACTIVITY")) {
-            transformActivity((Element) node);
+            transformActivity(element);
         } else if (type.equals("ADMIN_ENTRY")) {
-            transformAdminEntry((Element) node);
+            transformAdminEntry(element);
         } else if (type.equals("CLUSTER")) {
-            transformClusterOrSection((Element) node);
+            transformClusterOrSection(element);
         } else if (type.equals("COMPOSITION")) {
-            transformComposition((Element) node);
+            transformComposition(element);
+            transformNamespaces(element);
         } else if (type.equals("ELEMENT")) {
-            transformElement((Element) node, xsdXPath);
+            transformElement(element, xsdXPath);
         } else if (type.equals("EVALUATION")) {
-            transformEvaluation((Element) node);
+            transformEvaluation(element);
         } else if (type.equals("INSTRUCTION")) {
-            transformInstruction((Element) node);
+            transformInstruction(element);
         } else if (type.equals("INTERVAL_EVENT")) {
-            transformIntervalEvent((Element) node);
+            transformIntervalEvent(element);
         } else if (type.equals("ITEM_TREE")) {
-            transformItemTree((Element) node);
+            transformItemTree(element);
         } else if (type.equals("OBSERVATION")) {
-            transformObservation((Element) node);
+            transformObservation(element);
         } else if (type.equals("POINT_EVENT")) {
-            transformPointEvent((Element) node);
+            transformPointEvent(element);
         } else if (type.equals("SECTION")) {
-            transformClusterOrSection((Element) node);
+            transformClusterOrSection(element);
         } else {
             log.error("unsupported type = {}", () -> _type);
             throw new RuntimeException("unsupported type " + type);
@@ -166,7 +173,7 @@ public class TDD extends XML {
                 () -> element.getNodeName());
         element.setAttribute("archetype_node_id", nodeId);
         if (type != null)
-            element.setAttribute("xsi:type", type);
+            element.setAttribute("xsi:type", "oe:" + type);
 
         if (nodeId.startsWith("openEHR-")) {
             List<Element> children = XML.getChildElements(element);
@@ -186,10 +193,14 @@ public class TDD extends XML {
             element.insertBefore(archetypeDetails, reference);
             Element archetypeId = document.createElement("archetype_id");
             archetypeDetails.appendChild(archetypeId);
-            archetypeId.setTextContent(nodeId);
+            Element archetypeIdValue = document.createElement("value");
+            archetypeId.appendChild(archetypeIdValue);
+            archetypeIdValue.setTextContent(nodeId);
             Element templateId = document.createElement("template_id");
             archetypeDetails.appendChild(templateId);
-            templateId.setTextContent(getTemplateId());
+            Element templateIdValue = document.createElement("value");
+            templateId.appendChild(templateIdValue);
+            templateIdValue.setTextContent(getTemplateId());
             Element rmVersion = document.createElement("rm_version");
             archetypeDetails.appendChild(rmVersion);
             rmVersion.setTextContent("1.0.2");
@@ -207,7 +218,7 @@ public class TDD extends XML {
         document.renameNode(element, null, "activities");
 
         List<Element> children = XML.getChildElements(element);
-        log.trace("{}", () -> "reversing children timing and description");
+        log.trace("{}", () -> "reversing ACTIVITY children timing and description");
         element.removeChild(children.get(1));
         element.insertBefore(children.get(1), children.get(3));
     }
@@ -251,9 +262,36 @@ public class TDD extends XML {
         String type = getTDS().getXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='valueType'][1]/@fixed");
         List<Element> children = XML.getChildElements(element);
         for (Element child : children) {
+            if (child.getNodeName().equals("name")) {
+                log.trace("removing {} children other than {}", () -> "name", () -> "value");
+                List<Element> nameChildren = XML.getChildElements(child);
+                for (int i = 1; i < nameChildren.size(); i++)
+                    child.removeChild(nameChildren.get(i));
+            }
             if (child.getNodeName().equals("value")) {
                 log.trace("setting @type to {}", () -> type);
-                child.setAttribute("xsi:type", type);
+                child.setAttribute("xsi:type", "oe:" + type);
+                if (type.equals("DV_PROPORTION")) {
+                    log.trace("inferring {} denominator from type", () -> type);
+                    List<Element> proportionChildren = XML.getChildElements(child);
+                    Element proportionType = proportionChildren.get(1);
+                    if (proportionType.getNodeName().equals("type")) {
+                        Element denominator = element.getOwnerDocument().createElement("denominator");
+                        child.insertBefore(denominator, proportionType);
+                        if (proportionType.getTextContent().equals("1")) {
+                            denominator.setTextContent("1");
+                        } else if (proportionType.getTextContent().equals("2")) {
+                            denominator.setTextContent("100");
+                        }
+                    }
+                } else if (type.equals("DV_QUANTITY")) {
+                    log.trace("reversing {} children precision and units", () -> type);
+                    List<Element> quantityChildren = XML.getChildElements(child);
+                    if (quantityChildren.size() > 2) {
+                        Node units = child.removeChild(quantityChildren.get(quantityChildren.size() - 1));
+                        child.insertBefore(units, quantityChildren.get(quantityChildren.size() - 2));
+                    }
+                }
                 break;
             }
         }
@@ -301,7 +339,7 @@ public class TDD extends XML {
             }
         }
         log.trace("setting @type to {}", () -> "HISTORY");
-        data.setAttribute("type", "HISTORY");
+        data.setAttribute("xsi:type", "oe:HISTORY");
         insertNameAsFirstChild(data, "HISTORY");
 
         Document document = element.getOwnerDocument();
@@ -329,8 +367,9 @@ public class TDD extends XML {
 
     protected void transformPointEvent(Element element) {
         log.trace("transformPointEvent({})", () -> element.getNodeName());
+        List<Element> children = XML.getChildElements(element);
         Element name = null;
-        for (Element child : XML.getChildElements(element)) {
+        for (Element child : children) {
             if (child.getNodeName().equals("name")) {
                 name = child;
                 break;
@@ -343,6 +382,27 @@ public class TDD extends XML {
                 break;
             }
         }
+
+        Element state = children.get(children.size() - 1);
+        if (state.getNodeName().equals("state") && XML.getChildElements(state).size() == 0) {
+            log.trace("removing empty {}", () -> "state");
+            element.removeChild(state);
+        }
+    }
+
+    protected void transformNamespaces(Element composition) {
+        composition.removeAttribute("template_id");
+        composition.removeAttribute("xmlns");
+        composition.removeAttribute("xmlns:oe");
+        composition.setAttribute("xsi:schemaLocation", OPENEHR_XSI_LOCATION);
+        transformNamespacePrefix(composition);
+    }
+
+    protected void transformNamespacePrefix(Element element) {
+        for (Element child : XML.getChildElements(element))
+            transformNamespacePrefix(child);
+        if (element.getNodeName().startsWith("oe:") == false)
+            element.getOwnerDocument().renameNode(element, OPENEHR_NS, "oe:" + element.getNodeName());
     }
 
 }
