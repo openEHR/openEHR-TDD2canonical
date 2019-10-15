@@ -1,4 +1,4 @@
-package com.coreconsulting.res.openehr;
+package com.coreconsulting.res.openehr.tdd2rm.util;
 
 import lombok.extern.log4j.Log4j2;
 

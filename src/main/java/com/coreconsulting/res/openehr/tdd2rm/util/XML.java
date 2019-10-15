@@ -1,4 +1,4 @@
-package com.coreconsulting.res.openehr;
+package com.coreconsulting.res.openehr.tdd2rm.util;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -33,14 +33,14 @@ public class XML {
     static protected XPath xpath = XPathFactory.newInstance().newXPath();
     @Getter
     protected Document xml;
-    DocumentBuilder builder;
+    transient DocumentBuilder builder;
 
-    private XML() {
+    public XML() {
         log.trace("XML({})", () -> "");
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            log.error("error creating the DOM builder", e);
+            log.error("error creating DOM builder", e);
         }
     }
 

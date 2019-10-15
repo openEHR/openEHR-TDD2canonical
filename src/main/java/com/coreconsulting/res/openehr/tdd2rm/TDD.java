@@ -1,5 +1,7 @@
-package com.coreconsulting.res.openehr;
+package com.coreconsulting.res.openehr.tdd2rm;
 
+import com.coreconsulting.res.openehr.tdd2rm.util.RegEx;
+import com.coreconsulting.res.openehr.tdd2rm.util.XML;
 import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,12 +18,14 @@ import java.util.List;
 @Log4j2
 public class TDD extends XML {
 
-    protected TDS tds;
-    protected String templateId;
-
     public static final String OPENEHR_NS = "http://schemas.openehr.org/v1";
     public static final String OPENEHR_NS_LOCATION = "https://specifications.openehr.org/releases/1.0/its/XML-schema/Composition.xsd";
     public static final String OPENEHR_XSI_LOCATION = OPENEHR_NS + " " + OPENEHR_NS_LOCATION;
+
+    protected TDS tds;
+    protected String templateId;
+
+    public TDD() {}
 
     public TDD(File file) {
         super(file);
@@ -59,11 +63,11 @@ public class TDD extends XML {
     public TDS getTDS() {
         log.trace("getTDS({})", () -> "");
         if (tds == null) {
-            tds = TDS.fromTemplateId(getTemplateId());
+            tds = TDSRegistry.fromTemplateId(getTemplateId());
             if (tds != null) {
                 log.debug("{}", () -> "loaded cached TDS for the TDD");
             } else {
-                tds = TDS.fromTDSLocation(getTDSLocation());
+                tds = TDSRegistry.fromTDSLocation(getTDSLocation());
                 log.debug("{}", () -> "loaded remote TDS for the TDD");
             }
         }
@@ -111,19 +115,19 @@ public class TDD extends XML {
 
     protected void transformNode(Node node, StringBuilder xsdXPath) {
         log.trace("transformNode({}, {})", () -> node.getNodeName(), () -> xsdXPath);
-        String nodeId = getTDS().getXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='archetype_node_id" +
-                "'][1]/@fixed");
+        String nodeId = getTDS().getCachedXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='archetype_node_id'][1" +
+                "]/@fixed");
         if (nodeId == null)
             return;
 
-        List<Element> children = XML.getChildElements(node);
+        List<Element> children = getChildElements(node);
         for (Element child : children)
             transformNode(child,
                     new StringBuilder("(").append(xsdXPath).append("//element[@name='").append(child.getNodeName()).append("'])[1]"));
 
         String type = RegEx.getFirstMatch(nodeId, "openEHR\\-\\w+\\-([^\\.]+).*");
         if (type == null)
-            type = getTDS().getXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='type'][1]/@fixed");
+            type = getTDS().getCachedXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='type'][1]/@fixed");
 
         String _type = type;
         log.debug("transforming node = {} [@nodeId = {}, @type = {}]", () -> node.getNodeName(), () -> nodeId,
@@ -176,7 +180,7 @@ public class TDD extends XML {
             element.setAttribute("xsi:type", "oe:" + type);
 
         if (nodeId.startsWith("openEHR-")) {
-            List<Element> children = XML.getChildElements(element);
+            List<Element> children = getChildElements(element);
             Element reference = children.get(1);
             for (int i = children.size() - 1; i >= 0; i--) {
                 Element child = children.get(i);
@@ -217,7 +221,7 @@ public class TDD extends XML {
         Document document = element.getOwnerDocument();
         document.renameNode(element, null, "activities");
 
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
         log.trace("{}", () -> "reversing ACTIVITY children timing and description");
         element.removeChild(children.get(1));
         element.insertBefore(children.get(1), children.get(3));
@@ -230,7 +234,7 @@ public class TDD extends XML {
 
     protected void transformClusterOrSection(Element element) {
         log.trace("transformClusterOrSection({})", () -> element.getNodeName());
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
         Document document = element.getOwnerDocument();
         for (Element child : children) {
             String nodeName = child.getNodeName();
@@ -247,7 +251,7 @@ public class TDD extends XML {
         Document document = element.getOwnerDocument();
         document.renameNode(element, null, "composition");
 
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
         for (int i = children.size() - 1; i >= 0; i--) {
             Node child = children.get(i);
             if (child.getNodeName().equals("context"))
@@ -259,12 +263,12 @@ public class TDD extends XML {
 
     protected void transformElement(Element element, StringBuilder xsdXPath) {
         log.trace("transformElement({}, {})", element.getNodeName(), xsdXPath);
-        String type = getTDS().getXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='valueType'][1]/@fixed");
-        List<Element> children = XML.getChildElements(element);
+        String type = getTDS().getCachedXPathAsString(xsdXPath + "/complexType[1]/attribute[@name='valueType'][1]/@fixed");
+        List<Element> children = getChildElements(element);
         for (Element child : children) {
             if (child.getNodeName().equals("name")) {
                 log.trace("removing {} children other than {}", () -> "name", () -> "value");
-                List<Element> nameChildren = XML.getChildElements(child);
+                List<Element> nameChildren = getChildElements(child);
                 for (int i = 1; i < nameChildren.size(); i++)
                     child.removeChild(nameChildren.get(i));
             }
@@ -273,7 +277,7 @@ public class TDD extends XML {
                 child.setAttribute("xsi:type", "oe:" + type);
                 if (type.equals("DV_PROPORTION")) {
                     log.trace("inferring {} denominator from type", () -> type);
-                    List<Element> proportionChildren = XML.getChildElements(child);
+                    List<Element> proportionChildren = getChildElements(child);
                     Element proportionType = proportionChildren.get(1);
                     if (proportionType.getNodeName().equals("type")) {
                         Element denominator = element.getOwnerDocument().createElement("denominator");
@@ -286,7 +290,7 @@ public class TDD extends XML {
                     }
                 } else if (type.equals("DV_QUANTITY")) {
                     log.trace("reversing {} children precision and units", () -> type);
-                    List<Element> quantityChildren = XML.getChildElements(child);
+                    List<Element> quantityChildren = getChildElements(child);
                     if (quantityChildren.size() > 2) {
                         Node units = child.removeChild(quantityChildren.get(quantityChildren.size() - 1));
                         child.insertBefore(units, quantityChildren.get(quantityChildren.size() - 2));
@@ -315,7 +319,7 @@ public class TDD extends XML {
     protected void transformItemTree(Element element) {
         log.trace("transformItemTree({})", () -> element.getNodeName());
         // não foram necessárias transformações especializadas até o momento
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
         if (children.size() > 0) {
             log.trace("adding child name[value=ITEM_TREE] before {}", () -> children.get(0).getNodeName());
             insertNameBeforeElement(element, children.get(0), "ITEM_TREE");
@@ -329,7 +333,7 @@ public class TDD extends XML {
 
     protected void transformObservation(Element element) {
         log.trace("transformObservation({})", () -> element.getNodeName());
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
 
         Element data = null;
         for (Element child : children) {
@@ -343,7 +347,7 @@ public class TDD extends XML {
         insertNameAsFirstChild(data, "HISTORY");
 
         Document document = element.getOwnerDocument();
-        List<Element> dataChildren = XML.getChildElements(data);
+        List<Element> dataChildren = getChildElements(data);
         boolean hasOrigin = false;
         for (Element child : dataChildren) {
             if (child.getNodeName().equals("name")) {
@@ -367,7 +371,7 @@ public class TDD extends XML {
 
     protected void transformPointEvent(Element element) {
         log.trace("transformPointEvent({})", () -> element.getNodeName());
-        List<Element> children = XML.getChildElements(element);
+        List<Element> children = getChildElements(element);
         Element name = null;
         for (Element child : children) {
             if (child.getNodeName().equals("name")) {
@@ -375,7 +379,7 @@ public class TDD extends XML {
                 break;
             }
         }
-        for (Element child : XML.getChildElements(name)) {
+        for (Element child : getChildElements(name)) {
             if (child.getNodeName().equals("value")) {
                 log.trace("renaming name/value from {} to ANY_EVENT", () -> child.getTextContent());
                 child.setTextContent("ANY_EVENT");
@@ -384,7 +388,7 @@ public class TDD extends XML {
         }
 
         Element state = children.get(children.size() - 1);
-        if (state.getNodeName().equals("state") && XML.getChildElements(state).size() == 0) {
+        if (state.getNodeName().equals("state") && getChildElements(state).size() == 0) {
             log.trace("removing empty {}", () -> "state");
             element.removeChild(state);
         }
@@ -399,7 +403,7 @@ public class TDD extends XML {
     }
 
     protected void transformNamespacePrefix(Element element) {
-        for (Element child : XML.getChildElements(element))
+        for (Element child : getChildElements(element))
             transformNamespacePrefix(child);
         if (element.getNodeName().startsWith("oe:") == false)
             element.getOwnerDocument().renameNode(element, OPENEHR_NS, "oe:" + element.getNodeName());
