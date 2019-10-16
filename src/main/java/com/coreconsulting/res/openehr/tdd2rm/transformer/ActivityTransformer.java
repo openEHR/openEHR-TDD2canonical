@@ -1,0 +1,27 @@
+package com.coreconsulting.res.openehr.tdd2rm.transformer;
+
+import com.coreconsulting.res.openehr.tdd2rm.TDD;
+import lombok.extern.log4j.Log4j2;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.util.List;
+
+@Log4j2
+public class ActivityTransformer extends AbstractTransformer {
+
+    public static String type = "ACTIVITY";
+
+    @Override
+    public void transformElement(TDD tdd, Element element, String nodeId, String type, StringBuilder xsdXPath) {
+        log.trace("transformElement({}, {}, {}, {})", () -> tdd.getTemplateId(), () -> element.getNodeName(),
+                () -> nodeId, () -> type);
+        Document document = element.getOwnerDocument();
+        document.renameNode(element, null, "activities");
+
+        List<Element> children = tdd.getChildElements(element);
+        log.debug("{}", () -> "reversing ACTIVITY children timing and description");
+        element.removeChild(children.get(1));
+        element.insertBefore(children.get(1), children.get(3));
+    }
+}
