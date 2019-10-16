@@ -5,6 +5,7 @@ import com.coreconsulting.res.openehr.tdd2rm.util.XML;
 import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -21,6 +22,7 @@ public class TDD extends XML {
     public static final String OPENEHR_NS = "http://schemas.openehr.org/v1";
     public static final String OPENEHR_NS_LOCATION = "https://specifications.openehr.org/releases/1.0/its/XML-schema/Composition.xsd";
     public static final String OPENEHR_XSI_LOCATION = OPENEHR_NS + " " + OPENEHR_NS_LOCATION;
+    protected String OPENEHR_NS_PREFIX;
 
     protected TDS tds;
     protected String templateId;
@@ -40,6 +42,31 @@ public class TDD extends XML {
     public TDD(URI uri) {
         super(uri);
         log.trace("TDD({})", () -> uri);
+    }
+
+    public String getNamespacePrefix() {
+        log.trace("getNamespacePrefix({})", () -> "");
+        if (OPENEHR_NS_PREFIX == null) {
+            Element composition = xml.getDocumentElement();
+            NamedNodeMap attributes = composition.getAttributes();
+            for (int i = 0; i < attributes.getLength(); i++) {
+                Node attribute = attributes.item(i);
+                String key = attribute.getNodeName();
+                String value = attribute.getNodeValue();
+                if (key.equals("xmlns") && value.equals(OPENEHR_NS)) {
+                    OPENEHR_NS_PREFIX = "oe:";
+                    log.debug("added OPENEHR_NS_PREFIX={} for OPENEHR_NS={}", () -> OPENEHR_NS_PREFIX,
+                            () -> OPENEHR_NS);
+                    break;
+                } else if (key.startsWith("xmlns:") && value.equals(OPENEHR_NS)) {
+                    OPENEHR_NS_PREFIX = key.substring(key.indexOf(":") + 1, key.length()) + ":";
+                    log.debug("parsed OPENEHR_NS_PREFIX={} for OPENEHR_NS={}", () -> OPENEHR_NS_PREFIX,
+                            () -> OPENEHR_NS);
+                    break;
+                }
+            }
+        }
+        return OPENEHR_NS_PREFIX;
     }
 
     public String getTDSLocation() {
@@ -177,7 +204,7 @@ public class TDD extends XML {
                 () -> element.getNodeName());
         element.setAttribute("archetype_node_id", nodeId);
         if (type != null)
-            element.setAttribute("xsi:type", "oe:" + type);
+            element.setAttribute("xsi:type", getNamespacePrefix() + type);
 
         if (nodeId.startsWith("openEHR-")) {
             List<Element> children = getChildElements(element);
@@ -274,7 +301,7 @@ public class TDD extends XML {
             }
             if (child.getNodeName().equals("value")) {
                 log.trace("setting @type to {}", () -> type);
-                child.setAttribute("xsi:type", "oe:" + type);
+                child.setAttribute("xsi:type", getNamespacePrefix() + type);
                 if (type.equals("DV_PROPORTION")) {
                     log.trace("inferring {} denominator from type", () -> type);
                     List<Element> proportionChildren = getChildElements(child);
@@ -343,7 +370,7 @@ public class TDD extends XML {
             }
         }
         log.trace("setting @type to {}", () -> "HISTORY");
-        data.setAttribute("xsi:type", "oe:HISTORY");
+        data.setAttribute("xsi:type", getNamespacePrefix() + "HISTORY");
         insertNameAsFirstChild(data, "HISTORY");
 
         Document document = element.getOwnerDocument();
@@ -394,19 +421,19 @@ public class TDD extends XML {
         }
     }
 
-    protected void transformNamespaces(Element composition) {
-        composition.removeAttribute("template_id");
-        composition.removeAttribute("xmlns");
-        composition.removeAttribute("xmlns:oe");
-        composition.setAttribute("xsi:schemaLocation", OPENEHR_XSI_LOCATION);
-        transformNamespacePrefix(composition);
-    }
-
     protected void transformNamespacePrefix(Element element) {
         for (Element child : getChildElements(element))
             transformNamespacePrefix(child);
-        if (element.getNodeName().startsWith("oe:") == false)
-            element.getOwnerDocument().renameNode(element, OPENEHR_NS, "oe:" + element.getNodeName());
+        if (element.getNodeName().startsWith(getNamespacePrefix()) == false)
+            element.getOwnerDocument().renameNode(element, OPENEHR_NS, getNamespacePrefix() + element.getNodeName());
+    }
+
+    protected void transformNamespaces(Element composition) {
+        composition.removeAttribute("template_id");
+        composition.removeAttribute("xmlns");
+        composition.removeAttribute("xmlns:" + getNamespacePrefix().substring(0, getNamespacePrefix().length() - 1));
+        composition.setAttribute("xsi:schemaLocation", OPENEHR_XSI_LOCATION);
+        transformNamespacePrefix(composition);
     }
 
 }
