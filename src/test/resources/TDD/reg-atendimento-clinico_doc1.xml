@@ -1,0 +1,1545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Registro_de_Atendimento_Clínico xmlns:oe="http://schemas.openehr.org/v1"
+ xmlns="http://schemas.oceanehr.com/templates"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.oceanehr.com/templates https://paste.ee/r/dMA12/0" template_id="Registro de Atendimento Clínico v1.0">
+    <name>
+        <value>Registro de Atendimento Clínico</value>
+    </name>
+    <language>
+        <terminology_id>
+            <value>ISO_639-1</value>
+        </terminology_id>
+        <code_string>pt</code_string>
+    </language>
+    <territory>
+        <terminology_id>
+            <value>ISO_3166-1</value>
+        </terminology_id>
+        <code_string>BR</code_string>
+    </territory>
+    <category>
+        <value>event</value>
+        <defining_code>
+            <terminology_id>
+                <value>openehr</value>
+            </terminology_id>
+            <code_string>433</code_string>
+        </defining_code>
+    </category>
+    <composer xsi:type="oe:PARTY_IDENTIFIED">
+        <oe:identifiers>
+            <oe:issuer>2.16.840.1.113883.13.236</oe:issuer>
+            <oe:assigner>2.16.840.1.113883.13.236</oe:assigner>
+            <oe:id>2345667891234</oe:id>
+            <oe:type>CPF</oe:type>
+        </oe:identifiers>
+    </composer>
+    <context>
+        <start_time>
+            <oe:value>2019-09-03T17:45:27.680Z</oe:value>
+        </start_time>
+        <setting>
+            <oe:value>secondary medical care</oe:value>
+            <oe:defining_code>
+                <oe:terminology_id>
+                    <oe:value>openehr</oe:value>
+                </oe:terminology_id>
+                <oe:code_string>232</oe:code_string>
+            </oe:defining_code>
+        </setting>
+    </context>
+    <Caracterização_do_atendimento>
+        <name>
+            <value>Caracterização do atendimento</value>
+        </name>
+        <Admissão_do_paciente>
+            <name>
+                <value>Admissão do paciente</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Modalidade_assistencial>
+                    <name>
+                        <value>Modalidade assistencial</value>
+                    </name>
+                    <value>
+                        <value>Atenção básica</value>
+                        <defining_code>
+                            <terminology_id>
+                                <value>local</value>
+                            </terminology_id>
+                            <code_string>at0.136</code_string>
+                        </defining_code>
+                    </value>
+                </Modalidade_assistencial>
+                <Procedência>
+                    <name>
+                        <value>Procedência</value>
+                    </name>
+                    <value>
+                        <value>SAMU</value>
+                    </value>
+                </Procedência>
+                <Localização_atribuída_ao_paciente>
+                    <name>
+                        <value>Localização atribuída ao paciente</value>
+                    </name>
+                    <Local_de_atendimento>
+                        <name>
+                            <value>Local de atendimento</value>
+                        </name>
+                        <value>
+                            <value>Unidade móvel</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>local</value>
+                                </terminology_id>
+                                <code_string>at0.149</code_string>
+                            </defining_code>
+                        </value>
+                    </Local_de_atendimento>
+                    <Instituição>
+                        <name>
+                            <value>Instituição</value>
+                        </name>
+                        <Estabelecimento_de_saúde>
+                            <name>
+                                <value>Estabelecimento de saúde</value>
+                            </name>
+                            <value>
+                                <oe:value>UBS Bom Retiro</oe:value>
+                            </value>
+                        </Estabelecimento_de_saúde>
+                    </Instituição>
+                </Localização_atribuída_ao_paciente>
+                <Profissionais_do_atendimento>
+                    <name>
+                        <value>Profissionais do atendimento</value>
+                    </name>
+                    <Nome_do_profissional>
+                        <name>
+                            <value>Nome do profissional</value>
+                        </name>
+                        <value>
+                            <oe:value>MARLI DOS SANTOS NEVES DAS NEVES</oe:value>
+                        </value>
+                    </Nome_do_profissional>
+                    <CPF_do_profissional>
+                        <name>
+                            <value>CPF do profissional</value>
+                        </name>
+                        <value>
+                            <oe:value>20301136976</oe:value>
+                        </value>
+                    </CPF_do_profissional>
+                    <CNS>
+                        <name>
+                            <value>CNS</value>
+                        </name>
+                        <value>
+                            <oe:value>203011369760008</oe:value>
+                        </value>
+                    </CNS>
+                    <Ocupação_do_profissional>
+                        <name>
+                            <value>Ocupação do profissional</value>
+                        </name>
+                        <value>
+                            <value>Médico de família e comunidade</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>CBO_2002.v1.0.0</value>
+                                </terminology_id>
+                                <code_string>225130</code_string>
+                            </defining_code>
+                        </value>
+                    </Ocupação_do_profissional>
+                    <Dados_demográficos_individuais_do_profissional>
+                        <name>
+                            <value>Dados demográficos individuais do profissional</value>
+                        </name>
+                        <Conselho_de_classe>
+                            <name>
+                                <value>Conselho de classe</value>
+                            </name>
+                            <Tipo_de_conselho>
+                                <name>
+                                    <value>Tipo de conselho</value>
+                                </name>
+                                <value>
+                                    <value>CRBM</value>
+                                    <defining_code>
+                                        <terminology_id>
+                                            <value>local</value>
+                                        </terminology_id>
+                                        <code_string>at0.24</code_string>
+                                    </defining_code>
+                                </value>
+                            </Tipo_de_conselho>
+                            <UF>
+                                <name>
+                                    <value>UF</value>
+                                </name>
+                                <value>
+                                    <oe:value>DF</oe:value>
+                                </value>
+                            </UF>
+                            <Número_do_registro>
+                                <name>
+                                    <value>Número do registro</value>
+                                </name>
+                                <value>
+                                    <oe:value>123456</oe:value>
+                                </value>
+                            </Número_do_registro>
+                        </Conselho_de_classe>
+                    </Dados_demográficos_individuais_do_profissional>
+                </Profissionais_do_atendimento>
+                <Retorno>
+                    <name>
+                        <value>Retorno</value>
+                    </name>
+                    <value>
+                        <oe:value>true</oe:value>
+                    </value>
+                </Retorno>
+                <Data_e_hora_do_atendimento>
+                    <name>
+                        <value>Data e hora do atendimento</value>
+                    </name>
+                    <value>
+                        <oe:value>2018-01-01T00:00:00Z</oe:value>
+                    </value>
+                </Data_e_hora_do_atendimento>
+            </data>
+        </Admissão_do_paciente>
+    </Caracterização_do_atendimento>
+    <Motivo_do_atendimento>
+        <name>
+            <value>Motivo do atendimento</value>
+        </name>
+        <Motivo_para_o_encontro>
+            <name>
+                <value>Motivo para o encontro</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Motivo_do_atendimento>
+                    <name>
+                        <value>Motivo do atendimento</value>
+                    </name>
+                    <value>
+                        <oe:value>Hipertensão sem complicações</oe:value>
+                        <oe:defining_code>
+                            <oe:terminology_id>
+                                <oe:value>CIAP-2_2005.v1.0.0</oe:value>
+                            </oe:terminology_id>
+                            <oe:code_string>K86</oe:code_string>
+                        </oe:defining_code>
+                    </value>
+                </Motivo_do_atendimento>
+            </data>
+        </Motivo_para_o_encontro>
+        <Recipiente>
+            <name>
+                <value>Recipiente</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Texto_livre>
+                    <name>
+                        <value>Texto livre</value>
+                    </name>
+                    <Declaração_subjetiva_do_paciente_para_o_atendimento>
+                        <name>
+                            <value>Declaração subjetiva do paciente para o atendimento</value>
+                        </name>
+                        <value>
+                            <oe:value>Acompanhamento da pressão e diabetes.</oe:value>
+                        </value>
+                    </Declaração_subjetiva_do_paciente_para_o_atendimento>
+                </Texto_livre>
+            </data>
+        </Recipiente>
+    </Motivo_do_atendimento>
+    <Observações>
+        <name>
+            <value>Observações</value>
+        </name>
+        <Sinais_vitais>
+            <name>
+                <value>Sinais vitais</value>
+            </name>
+            <Pressão_Arterial>
+                <name>
+                    <value>Pressão Arterial</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <protocol>
+                    <Local_da_aferição>
+                        <name>
+                            <value>Local da aferição</value>
+                        </name>
+                        <value>
+                            <value>Braço direito</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>local</value>
+                                </terminology_id>
+                                <code_string>at0025</code_string>
+                            </defining_code>
+                        </value>
+                    </Local_da_aferição>
+                </protocol>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Sistólica>
+                                <name>
+                                    <value>Sistólica</value>
+                                </name>
+                                <value>
+                                    <magnitude>144</magnitude>
+                                    <precision>0</precision>
+                                    <units>mm[Hg]</units>
+                                </value>
+                            </Sistólica>
+                            <Diastólica>
+                                <name>
+                                    <value>Diastólica</value>
+                                </name>
+                                <value>
+                                    <magnitude>128</magnitude>
+                                    <precision>0</precision>
+                                    <units>mm[Hg]</units>
+                                </value>
+                            </Diastólica>
+                        </data>
+                        <state>
+                            <Posição_do_indivíduo_na_aferição>
+                                <name>
+                                    <value>Posição do indivíduo na aferição</value>
+                                </name>
+                                <value>
+                                    <value>Em pé</value>
+                                    <defining_code>
+                                        <terminology_id>
+                                            <value>local</value>
+                                        </terminology_id>
+                                        <code_string>at1000</code_string>
+                                    </defining_code>
+                                </value>
+                            </Posição_do_indivíduo_na_aferição>
+                        </state>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Pressão_Arterial>
+            <Pulso_fslash_Batimento_Cardíaco>
+                <name>
+                    <value>Pulso/Batimento Cardíaco</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Algum_evento_as_Point_Event>
+                        <name>
+                            <value>Algum evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Frequência_cardíaca>
+                                <name>
+                                    <value>Frequência cardíaca</value>
+                                    <defining_code>
+                                        <terminology_id>
+                                            <value>local</value>
+                                        </terminology_id>
+                                        <code_string>at1027</code_string>
+                                    </defining_code>
+                                </name>
+                                <value>
+                                    <magnitude>160</magnitude>
+                                    <precision>0</precision>
+                                    <units>/min</units>
+                                </value>
+                            </Frequência_cardíaca>
+                        </data>
+                        <state></state>
+                    </Algum_evento_as_Point_Event>
+                </data>
+            </Pulso_fslash_Batimento_Cardíaco>
+            <Respirações>
+                <name>
+                    <value>Respirações</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Frequência_respiratória>
+                                <name>
+                                    <value>Frequência respiratória</value>
+                                </name>
+                                <value>
+                                    <magnitude>30</magnitude>
+                                    <precision>0</precision>
+                                    <units>/min</units>
+                                </value>
+                            </Frequência_respiratória>
+                        </data>
+                        <state></state>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Respirações>
+            <Temperatura_Corporal>
+                <name>
+                    <value>Temperatura Corporal</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Temperatura>
+                                <name>
+                                    <value>Temperatura</value>
+                                </name>
+                                <value>
+                                    <magnitude>37.1</magnitude>
+                                    <precision>1</precision>
+                                    <units>Cel</units>
+                                </value>
+                            </Temperatura>
+                        </data>
+                        <state></state>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Temperatura_Corporal>
+            <Oximetria_de_pulso>
+                <name>
+                    <value>Oximetria de pulso</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Saturação_O2>
+                                <name>
+                                    <value>Saturação O2</value>
+                                </name>
+                                <value>
+                                    <numerator>90</numerator>
+                                    <type>2</type>
+                                </value>
+                            </Saturação_O2>
+                        </data>
+                        <state></state>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Oximetria_de_pulso>
+        </Sinais_vitais>
+        <Medições>
+            <name>
+                <value>Medições</value>
+            </name>
+            <Peso_corporal>
+                <name>
+                    <value>Peso corporal</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Peso>
+                                <name>
+                                    <value>Peso</value>
+                                </name>
+                                <value>
+                                    <magnitude>72.0</magnitude>
+                                    <units>kg</units>
+                                </value>
+                            </Peso>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Peso_corporal>
+            <Altura__fslash__comprimento>
+                <name>
+                    <value>Altura / comprimento</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Altura>
+                                <name>
+                                    <value>Altura</value>
+                                </name>
+                                <value>
+                                    <magnitude>178</magnitude>
+                                    <units>cm</units>
+                                </value>
+                            </Altura>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Altura__fslash__comprimento>
+            <Índice_de_massa_corporal>
+                <name>
+                    <value>Índice de massa corporal</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Índice_de_massa_corporal>
+                                <name>
+                                    <value>Índice de massa corporal</value>
+                                </name>
+                                <value>
+                                    <magnitude>25.8</magnitude>
+                                    <precision>1</precision>
+                                    <units>kg/m2</units>
+                                </value>
+                            </Índice_de_massa_corporal>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Índice_de_massa_corporal>
+            <Circunferência_cefálica>
+                <name>
+                    <value>Circunferência cefálica</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Perímetro_cefálico_>
+                                <name>
+                                    <value>Perímetro cefálico </value>
+                                </name>
+                                <value>
+                                    <magnitude>78</magnitude>
+                                    <units>cm</units>
+                                </value>
+                            </Perímetro_cefálico_>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Circunferência_cefálica>
+            <Circunferência_da_cintura>
+                <name>
+                    <value>Circunferência da cintura</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Circunferência_da_cintura>
+                                <name>
+                                    <value>Circunferência da cintura</value>
+                                </name>
+                                <value>
+                                    <magnitude>122</magnitude>
+                                    <units>cm</units>
+                                </value>
+                            </Circunferência_da_cintura>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Circunferência_da_cintura>
+        </Medições>
+        <Informações_adicionais>
+            <name>
+                <value>Informações adicionais</value>
+            </name>
+            <Ciclo_menstrual>
+                <name>
+                    <value>Ciclo menstrual</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Qualquer_evento_as_Point_Event>
+                        <name>
+                            <value>Qualquer evento</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <DUM__openBrkt_Data_da_Última_Menstruação_closeBrkt_>
+                                <name>
+                                    <value>DUM (Data da Última Menstruação)</value>
+                                </name>
+                                <value>
+                                    <oe:value>2018-01-01T00:00:00Z</oe:value>
+                                </value>
+                            </DUM__openBrkt_Data_da_Última_Menstruação_closeBrkt_>
+                        </data>
+                        <state/>
+                    </Qualquer_evento_as_Point_Event>
+                </data>
+            </Ciclo_menstrual>
+            <Gestação>
+                <name>
+                    <value>Gestação</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Data_da_medida>
+                        <name>
+                            <value>Data da medida</value>
+                        </name>
+                        <time>
+                            <oe:value>2018-01-01T00:00:00Z</oe:value>
+                        </time>
+                        <data>
+                            <Idade_gestacional>
+                                <name>
+                                    <value>Idade gestacional</value>
+                                </name>
+                                <value>
+                                    <value>P8W3D</value>
+                                </value>
+                            </Idade_gestacional>
+                        </data>
+                    </Data_da_medida>
+                </data>
+            </Gestação>
+            <Sumário_obstétrico>
+                <name>
+                    <value>Sumário obstétrico</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Quantidade_de_gestas_prévias>
+                        <name>
+                            <value>Quantidade de gestas prévias</value>
+                        </name>
+                        <value>
+                            <magnitude>0</magnitude>
+                        </value>
+                    </Quantidade_de_gestas_prévias>
+                    <Quantidade_de_partos>
+                        <name>
+                            <value>Quantidade de partos</value>
+                        </name>
+                        <value>
+                            <magnitude>0</magnitude>
+                        </value>
+                    </Quantidade_de_partos>
+                    <Quantidade_de_abortos>
+                        <name>
+                            <value>Quantidade de abortos</value>
+                        </name>
+                        <value>
+                            <magnitude>0</magnitude>
+                        </value>
+                    </Quantidade_de_abortos>
+                </data>
+            </Sumário_obstétrico>
+            <Recipiente>
+                <name>
+                    <value>Recipiente</value>
+                </name>
+                <language>
+                    <terminology_id>
+                        <value>ISO_639-1</value>
+                    </terminology_id>
+                    <code_string>pt</code_string>
+                </language>
+                <encoding>
+                    <terminology_id>
+                        <value>IANA_character-sets</value>
+                    </terminology_id>
+                    <code_string>UTF-8</code_string>
+                </encoding>
+                <subject xsi:type="oe:PARTY_SELF"/>
+                <data>
+                    <Texto_livre>
+                        <name>
+                            <value>Texto livre</value>
+                        </name>
+                        <Tipo_de_aleitamento_materno_para_crianças_até_2_anos>
+                            <name>
+                                <value>Tipo de aleitamento materno para crianças até 2 anos</value>
+                            </name>
+                            <value>
+                                <oe:value>Aleitamento materno exclusiv0</oe:value>
+                            </value>
+                        </Tipo_de_aleitamento_materno_para_crianças_até_2_anos>
+                    </Texto_livre>
+                </data>
+            </Recipiente>
+            <Exposição_a_substâncias_col__uso_de_álcool_comma__tabaco_e_outras_substâncias_nos_últimos_3_meses>
+                <name>
+                    <value>Exposição a substâncias: uso de álcool, tabaco e outras substâncias nos últimos 3 meses</value>
+                </name>
+                <Consumo_de_álcool>
+                    <name>
+                        <value>Consumo de álcool</value>
+                    </name>
+                    <language>
+                        <terminology_id>
+                            <value>ISO_639-1</value>
+                        </terminology_id>
+                        <code_string>pt</code_string>
+                    </language>
+                    <encoding>
+                        <terminology_id>
+                            <value>IANA_character-sets</value>
+                        </terminology_id>
+                        <code_string>UTF-8</code_string>
+                    </encoding>
+                    <subject xsi:type="oe:PARTY_SELF"/>
+                    <data>
+                        <Qualquer_evento_as_Point_Event>
+                            <name>
+                                <value>Qualquer evento</value>
+                            </name>
+                            <time>
+                                <oe:value>2018-01-01T00:00:00Z</oe:value>
+                            </time>
+                            <data>
+                                <Comentário>
+                                    <name>
+                                        <value>Comentário</value>
+                                    </name>
+                                    <value>
+                                        <oe:value>Cerveja, 6 copos dia</oe:value>
+                                    </value>
+                                </Comentário>
+                                <Uso_de_álcool_quest_>
+                                    <name>
+                                        <value>Uso de álcool?</value>
+                                    </name>
+                                    <value>
+                                        <oe:value>true</oe:value>
+                                    </value>
+                                </Uso_de_álcool_quest_>
+                            </data>
+                        </Qualquer_evento_as_Point_Event>
+                    </data>
+                </Consumo_de_álcool>
+                <Uso_de_tabaco>
+                    <name>
+                        <value>Uso de tabaco</value>
+                    </name>
+                    <language>
+                        <terminology_id>
+                            <value>ISO_639-1</value>
+                        </terminology_id>
+                        <code_string>pt</code_string>
+                    </language>
+                    <encoding>
+                        <terminology_id>
+                            <value>IANA_character-sets</value>
+                        </terminology_id>
+                        <code_string>UTF-8</code_string>
+                    </encoding>
+                    <subject xsi:type="oe:PARTY_SELF"/>
+                    <data>
+                        <Qualquer_evento_as_Point_Event>
+                            <name>
+                                <value>Qualquer evento</value>
+                            </name>
+                            <time>
+                                <oe:value>2018-01-01T00:00:00Z</oe:value>
+                            </time>
+                            <data>
+                                <Uso_de_tabaco_quest_>
+                                    <name>
+                                        <value>Uso de tabaco?</value>
+                                    </name>
+                                    <value>
+                                        <oe:value>true</oe:value>
+                                    </value>
+                                </Uso_de_tabaco_quest_>
+                                <Comentário>
+                                    <name>
+                                        <value>Comentário</value>
+                                    </name>
+                                    <value>
+                                        <oe:value>Dois maços por dia</oe:value>
+                                    </value>
+                                </Comentário>
+                            </data>
+                        </Qualquer_evento_as_Point_Event>
+                    </data>
+                </Uso_de_tabaco>
+                <Outras_substâncias_psicoativas>
+                    <name>
+                        <value>Outras substâncias psicoativas</value>
+                    </name>
+                    <Substância_em_uso>
+                        <name>
+                            <value>Substância em uso</value>
+                        </name>
+                        <language>
+                            <terminology_id>
+                                <value>ISO_639-1</value>
+                            </terminology_id>
+                            <code_string>pt</code_string>
+                        </language>
+                        <encoding>
+                            <terminology_id>
+                                <value>IANA_character-sets</value>
+                            </terminology_id>
+                            <code_string>UTF-8</code_string>
+                        </encoding>
+                        <subject xsi:type="oe:PARTY_SELF"/>
+                        <data>
+                            <Qualquer_evento_as_Point_Event>
+                                <name>
+                                    <value>Qualquer evento</value>
+                                </name>
+                                <time>
+                                    <oe:value>2018-01-01T00:00:00Z</oe:value>
+                                </time>
+                                <data>
+                                    <Categoria_da_substância_psicoativa>
+                                        <name>
+                                            <value>Categoria da substância psicoativa</value>
+                                        </name>
+                                        <value>
+                                            <value>Opiáceos</value>
+                                            <defining_code>
+                                                <terminology_id>
+                                                    <value>local</value>
+                                                </terminology_id>
+                                                <code_string>at0.25</code_string>
+                                            </defining_code>
+                                        </value>
+                                    </Categoria_da_substância_psicoativa>
+                                    <Nome_da_substância_psicoativa>
+                                        <name>
+                                            <value>Nome da substância psicoativa</value>
+                                        </name>
+                                        <value>
+                                            <oe:value>Heroína</oe:value>
+                                        </value>
+                                    </Nome_da_substância_psicoativa>
+                                    <Detalhes_do_consumo>
+                                        <name>
+                                            <value>Detalhes do consumo</value>
+                                        </name>
+                                        <Frequência>
+                                            <name>
+                                                <value>Frequência</value>
+                                            </name>
+                                            <value>
+                                                <value>Uso semanal</value>
+                                                <defining_code>
+                                                    <terminology_id>
+                                                        <value>local</value>
+                                                    </terminology_id>
+                                                    <code_string>at0020</code_string>
+                                                </defining_code>
+                                            </value>
+                                        </Frequência>
+                                    </Detalhes_do_consumo>
+                                </data>
+                            </Qualquer_evento_as_Point_Event>
+                        </data>
+                    </Substância_em_uso>
+                </Outras_substâncias_psicoativas>
+            </Exposição_a_substâncias_col__uso_de_álcool_comma__tabaco_e_outras_substâncias_nos_últimos_3_meses>
+        </Informações_adicionais>
+    </Observações>
+    <Diagnósticos_avaliados>
+        <name>
+            <value>Diagnósticos avaliados</value>
+        </name>
+        <Problema_Diagnóstico>
+            <name>
+                <value>Problema Diagnóstico</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Diagnóstico>
+                    <name>
+                        <value>Diagnóstico</value>
+                    </name>
+                    <value>
+                        <oe:value>Hipertensão secundária</oe:value>
+                        <oe:defining_code>
+                            <oe:terminology_id>
+                                <oe:value>CID-10_1998.v1.0.0</oe:value>
+                            </oe:terminology_id>
+                            <oe:code_string>I15</oe:code_string>
+                        </oe:defining_code>
+                    </value>
+                </Diagnóstico>
+                <Qualificador_do_problema_fslash_diagnóstico>
+                    <name>
+                        <value>Qualificador do problema/diagnóstico</value>
+                    </name>
+                    <Estado_de_resolução_do_diagnóstico>
+                        <name>
+                            <value>Estado de resolução do diagnóstico</value>
+                        </name>
+                        <value>
+                            <value>Não resolvendo</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>local</value>
+                                </terminology_id>
+                                <code_string>at0086</code_string>
+                            </defining_code>
+                        </value>
+                    </Estado_de_resolução_do_diagnóstico>
+                    <Categoria_do_diagnóstico>
+                        <name>
+                            <value>Categoria do diagnóstico</value>
+                        </name>
+                        <value>
+                            <value>Diagnóstico principal</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>local</value>
+                                </terminology_id>
+                                <code_string>at0064</code_string>
+                            </defining_code>
+                        </value>
+                    </Categoria_do_diagnóstico>
+                    <Indicador_de_presença_na_admissão>
+                        <name>
+                            <value>Indicador de presença na admissão</value>
+                        </name>
+                        <value>
+                            <value>Sim</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>local</value>
+                                </terminology_id>
+                                <code_string>at0.98</code_string>
+                            </defining_code>
+                        </value>
+                    </Indicador_de_presença_na_admissão>
+                </Qualificador_do_problema_fslash_diagnóstico>
+            </data>
+        </Problema_Diagnóstico>
+    </Diagnósticos_avaliados>
+    <Alergias_e_fslash_ou_reações_adversas_no_atendimento>
+        <name>
+            <value>Alergias e/ou reações adversas no atendimento</value>
+        </name>
+        <Risco_de_reação_adversa>
+            <name>
+                <value>Risco de reação adversa</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Agente_fslash_substância_específica>
+                    <name>
+                        <value>Agente/substância específica</value>
+                    </name>
+                    <value>
+                        <oe:value>Lactose</oe:value>
+                    </value>
+                </Agente_fslash_substância_específica>
+                <Grau_de_certeza>
+                    <name>
+                        <value>Grau de certeza</value>
+                    </name>
+                    <value>
+                        <value>Suspeita</value>
+                        <defining_code>
+                            <terminology_id>
+                                <value>local</value>
+                            </terminology_id>
+                            <code_string>at0127</code_string>
+                        </defining_code>
+                    </value>
+                </Grau_de_certeza>
+                <Criticidade>
+                    <name>
+                        <value>Criticidade</value>
+                    </name>
+                    <value>
+                        <value>Baixo</value>
+                        <defining_code>
+                            <terminology_id>
+                                <value>local</value>
+                            </terminology_id>
+                            <code_string>at0102</code_string>
+                        </defining_code>
+                    </value>
+                </Criticidade>
+                <Categoria_do_agente_causador_da_alergia_ou_reação_adversa>
+                    <name>
+                        <value>Categoria do agente causador da alergia ou reação adversa</value>
+                    </name>
+                    <value>
+                        <value>Alimento</value>
+                    </value>
+                </Categoria_do_agente_causador_da_alergia_ou_reação_adversa>
+                <Data_da_instalação_da_reação_adversa>
+                    <name>
+                        <value>Data da instalação da reação adversa</value>
+                    </name>
+                    <value>
+                        <oe:value>2018-01-01T00:00:00Z</oe:value>
+                    </value>
+                </Data_da_instalação_da_reação_adversa>
+                <Evolução_da_alergia_fslash_reação_adversa>
+                    <name>
+                        <value>Evolução da alergia/reação adversa</value>
+                    </name>
+                    <value>
+                        <oe:value>Pele avermelhada</oe:value>
+                    </value>
+                </Evolução_da_alergia_fslash_reação_adversa>
+            </data>
+        </Risco_de_reação_adversa>
+    </Alergias_e_fslash_ou_reações_adversas_no_atendimento>
+    <Procedimento_openBrkt_s_closeBrkt__realizado_openBrkt_s_closeBrkt_>
+        <name>
+            <value>Procedimento(s) realizado(s)</value>
+        </name>
+        <Procedimento>
+            <name>
+                <value>Procedimento</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <time>
+                <oe:value>2018-01-01T00:00:00Z</oe:value>
+            </time>
+            <description>
+                <Procedimento_openBrkt_s_closeBrkt__realizado_openBrkt_s_closeBrkt_>
+                    <name>
+                        <value>Procedimento(s) realizado(s)</value>
+                    </name>
+                    <value>
+                        <oe:value>ELETROCARDIOGRAMA</oe:value>
+                        <oe:defining_code>
+                            <oe:terminology_id>
+                                <oe:value>SIGTAP_201712.v1.0.0</oe:value>
+                            </oe:terminology_id>
+                            <oe:code_string>02.11.02.003-6</oe:code_string>
+                        </oe:defining_code>
+                    </value>
+                </Procedimento_openBrkt_s_closeBrkt__realizado_openBrkt_s_closeBrkt_>
+                <Categoria_do_procedimento>
+                    <name>
+                        <value>Categoria do procedimento</value>
+                    </name>
+                    <value>
+                        <value>SADT</value>
+                    </value>
+                </Categoria_do_procedimento>
+                <Resultado_ou_observações_do_procedimento>
+                    <name>
+                        <value>Resultado ou observações do procedimento</value>
+                    </name>
+                    <value>
+                        <oe:value>Frequência cardíaca entre 80 e 100 batimentos por minuto. Onda P presente, indicando ritmo sinusal. A onda P normal.</oe:value>
+                    </value>
+                </Resultado_ou_observações_do_procedimento>
+                <Data_da_realização>
+                    <name>
+                        <value>Data da realização</value>
+                    </name>
+                    <value>
+                        <oe:value>2018-01-01T00:00:00Z</oe:value>
+                    </value>
+                </Data_da_realização>
+                <Estado_do_procedimento>
+                    <name>
+                        <value>Estado do procedimento</value>
+                    </name>
+                    <value>
+                        <value>Concluído</value>
+                        <defining_code>
+                            <terminology_id>
+                                <value>local</value>
+                            </terminology_id>
+                            <code_string>at0.71</code_string>
+                        </defining_code>
+                    </value>
+                </Estado_do_procedimento>
+            </description>
+            <ism_transition>
+                <current_state>
+                    <oe:value>completed</oe:value>
+                    <oe:defining_code>
+                        <oe:terminology_id>
+                            <oe:value>openehr</oe:value>
+                        </oe:terminology_id>
+                        <oe:code_string>532</oe:code_string>
+                    </oe:defining_code>
+                </current_state>
+            </ism_transition>
+        </Procedimento>
+    </Procedimento_openBrkt_s_closeBrkt__realizado_openBrkt_s_closeBrkt_>
+    <Receita_no_atendimento>
+        <name>
+            <value>Receita no atendimento</value>
+        </name>
+        <Recipiente>
+            <name>
+                <value>Recipiente</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Texto_livre>
+                    <name>
+                        <value>Texto livre</value>
+                    </name>
+                    <Medicamentos_prescritos_no_atendimento__openBrkt_não_estruturado_closeBrkt_>
+                        <name>
+                            <value>Medicamentos prescritos no atendimento (não estruturado)</value>
+                        </name>
+                        <value>
+                            <oe:value>1) Captopril 25mg comprimidos, 1cp, oral, 12/12hs, por 30 dias; 2)Glibenclamida 5mg comprimidos, 1cp, oral, 12/12hs, por 30 dias; 3) Sinvastatina 20 mg comprimidos, 1cp, oral, 1x dia, por 30 dias.</oe:value>
+                        </value>
+                    </Medicamentos_prescritos_no_atendimento__openBrkt_não_estruturado_closeBrkt_>
+                </Texto_livre>
+            </data>
+        </Recipiente>
+    </Receita_no_atendimento>
+    <Plano_de_cuidados_comma__instruções_e_recomendações>
+        <name>
+            <value>Plano de cuidados, instruções e recomendações</value>
+        </name>
+        <Plano_de_cuidados>
+            <name>
+                <value>Plano de cuidados</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <narrative>
+                <oe:value></oe:value>
+            </narrative>
+            <Atividade>
+                <name>
+                    <value>Atividade</value>
+                </name>
+                <timing>
+                    <oe:value>2018-01-01T00:00:00Z</oe:value>
+                    <oe:formalism>ISO 8601</oe:formalism>
+                </timing>
+                <description>
+                    <Descrição_do_plano_de_cuidados_comma__instruções_e_recomendações>
+                        <name>
+                            <value>Descrição do plano de cuidados, instruções e recomendações</value>
+                        </name>
+                        <value>
+                            <oe:value>1) Orientação sobre dieta hipossódica e hipocalórica; 2) Caminhada diária; 3) Orientação sobre os cuidados com curativo da ferida cirírgica.</oe:value>
+                        </value>
+                    </Descrição_do_plano_de_cuidados_comma__instruções_e_recomendações>
+                </description>
+                <action_archetype_id>openEHR-EHR-ACTION.care_plan.v1</action_archetype_id>
+            </Atividade>
+        </Plano_de_cuidados>
+    </Plano_de_cuidados_comma__instruções_e_recomendações>
+    <Dados_do_desfecho>
+        <name>
+            <value>Dados do desfecho</value>
+        </name>
+        <Desfecho__fslash__alta_do_contato_assistencial>
+            <name>
+                <value>Desfecho / alta do contato assistencial</value>
+            </name>
+            <language>
+                <terminology_id>
+                    <value>ISO_639-1</value>
+                </terminology_id>
+                <code_string>pt</code_string>
+            </language>
+            <encoding>
+                <terminology_id>
+                    <value>IANA_character-sets</value>
+                </terminology_id>
+                <code_string>UTF-8</code_string>
+            </encoding>
+            <subject xsi:type="oe:PARTY_SELF"/>
+            <data>
+                <Encaminhamentos>
+                    <name>
+                        <value>Encaminhamentos</value>
+                    </name>
+                    <Encaminhamento_para_especialidade__openBrkt_estruturado_closeBrkt_>
+                        <name>
+                            <value>Encaminhamento para especialidade (estruturado)</value>
+                        </name>
+                        <value>
+                            <value>Médico de família e comunidade</value>
+                            <defining_code>
+                                <terminology_id>
+                                    <value>CBO_2002.v1.0.0</value>
+                                </terminology_id>
+                                <code_string>225130</code_string>
+                            </defining_code>
+                        </value>
+                    </Encaminhamento_para_especialidade__openBrkt_estruturado_closeBrkt_>
+                    <Justificativa>
+                        <name>
+                            <value>Justificativa</value>
+                        </name>
+                        <value>
+                            <oe:value>Necessidade de acompanhamento</oe:value>
+                        </value>
+                    </Justificativa>
+                    <Exame_ou_procedimento>
+                        <name>
+                            <value>Exame ou procedimento</value>
+                        </name>
+                        <Encaminhamento_para_exames_e_procedimentos>
+                            <name>
+                                <value>Encaminhamento para exames e procedimentos</value>
+                            </name>
+                            <value>
+                                <value>Perícia médica</value>
+                                <defining_code>
+                                    <terminology_id>
+                                        <value>TUSS_201907</value>
+                                    </terminology_id>
+                                    <code_string>10106103</code_string>
+                                </defining_code>
+                            </value>
+                        </Encaminhamento_para_exames_e_procedimentos>
+                        <Lateralidade>
+                            <name>
+                                <value>Lateralidade</value>
+                            </name>
+                            <value>
+                                <value>Direito</value>
+                                <defining_code>
+                                    <terminology_id>
+                                        <value>local</value>
+                                    </terminology_id>
+                                    <code_string>at0065</code_string>
+                                </defining_code>
+                            </value>
+                        </Lateralidade>
+                    </Exame_ou_procedimento>
+                </Encaminhamentos>
+                <Informações_adicionais_fslash_complementares>
+                    <name>
+                        <value>Informações adicionais/complementares</value>
+                    </name>
+                    <Descrição_das_informações>
+                        <name>
+                            <value>Descrição das informações</value>
+                        </name>
+                        <value>
+                            <oe:value>N/A</oe:value>
+                        </value>
+                    </Descrição_das_informações>
+                </Informações_adicionais_fslash_complementares>
+            </data>
+        </Desfecho__fslash__alta_do_contato_assistencial>
+    </Dados_do_desfecho>
+</Registro_de_Atendimento_Clínico>
