@@ -3,7 +3,7 @@
 <properties>
     <entry key="CACHE_FOLDER">./src/main/resources/cache</entry>
     <entry key="TEMPLATE_FOLDER">./src/main/resources/templates</entry>
-    <!-- Mapeamento de @template_id para arquivo -->
+    <!-- @template_id to file name (expected to be within $CACHE_FOLDER) mappings -->
     <entry key="CMD.v2">CMD.xsd</entry>
     <entry key="Resumo de consulta ab_CN1_v2.0.oet">CN1.xsd</entry>
     <entry key="SumariodeAlta_Resolucao_CIT_2018">CN2-CIT.xsd</entry>

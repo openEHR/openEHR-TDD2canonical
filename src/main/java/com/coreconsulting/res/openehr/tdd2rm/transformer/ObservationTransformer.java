@@ -8,6 +8,14 @@ import org.w3c.dom.Element;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * This class implements the transformation of an OBSERVATION from the TDD so that it complies to the openEHR Reference
+ * Model. See {@link AbstractTransformer} for more details.
+ * The transformation inserts a "data/name" child, sets @xsi:type and adds, when absent, the "origin" child generated
+ * from the current date/time.
+ *
+ * @author Ricardo Gonçalves {@literal <ricardo.goncalves@coreconsulting.com.br>}
+ */
 @Log4j2
 public class ObservationTransformer extends AbstractTransformer {
 

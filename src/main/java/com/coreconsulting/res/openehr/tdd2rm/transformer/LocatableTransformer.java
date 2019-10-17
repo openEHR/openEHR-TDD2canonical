@@ -7,6 +7,14 @@ import org.w3c.dom.Element;
 
 import java.util.List;
 
+/**
+ * This class implements the transformation of a LOCATABLE from the TDD so that it complies to the openEHR Reference
+ * Model. See {@link AbstractTransformer} for more details.
+ * The transformation sets the @archetype_node_id and, when present, the @xsi:type based on the definitions in the TDS.
+ * The transformation also adds the "archetype_details" child to every element that is an archetype root.
+ *
+ * @author Ricardo Gonçalves {@literal <ricardo.goncalves@coreconsulting.com.br>}
+ */
 @Log4j2
 public class LocatableTransformer extends AbstractTransformer {
 
