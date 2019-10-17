@@ -166,7 +166,7 @@ public class TDS extends XML implements Serializable {
     /**
      * Parses the @template_id from the TDS attribute definition. Once parsed, it is stored as a field for future use.
      *
-     * @return @template_id from the TDD root element
+     * @return {@literal @template_id} from the TDD root element
      */
     public String getTemplateId() {
         log.trace("getTemplateId({})", () -> "");

@@ -159,7 +159,7 @@ public class TDD extends XML {
     /**
      * Parses the @template_id from the TDD root element. Once parsed, it is stored as a field for future use.
      *
-     * @return @template_id from the TDD root element
+     * @return {@literal @template_id} from the TDD root element
      */
     public String getTemplateId() {
         log.trace("getTemplateId({})", () -> "");
@@ -231,7 +231,7 @@ public class TDD extends XML {
      * the document from the root element.
      *
      * @return openEHR Reference Model composition generated from the TDD
-     * @throws UnsupportedTypeException
+     * @throws UnsupportedTypeException when transforming a TDD with a type that isn't supported
      */
     public Document toRM() throws UnsupportedTypeException {
         log.trace("toRM({})", () -> "");

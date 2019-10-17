@@ -32,7 +32,7 @@ public abstract class AbstractTransformer {
      *
      * @param tdd {@link TDD} instance that owns the {@link Element} being transformed
      * @param element {@link Element} element being transformed
-     * @param nodeId @archetype_node_id of the element
+     * @param nodeId {@literal @archetype_node_id} of the element
      * @param type type of the element
      * @param xsdXPath path to the definition in the {@link com.coreconsulting.res.openehr.tdd2rm.TDS}
      */
