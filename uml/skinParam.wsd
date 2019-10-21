@@ -1,5 +1,8 @@
+skinParam ActivityBackgroundColor #FFF
+skinParam ActivityBorderThickness 1
+skinParam ActivityDiamondBackgroundColor #FFF
 skinParam actorBackgroundColor #FFF
-skinparam actorFontSize 10
+skinParam actorFontSize 10
 skinParam arrowColor #000
 skinParam arrowFontSize 10
 skinParam backgroundColor transparent
@@ -8,7 +11,7 @@ skinParam ClassBorderThickness 1
 skinParam DatabaseBackgroundColor #FFF
 skinParam DatabaseFontName Roboto Condensed
 skinParam DatabaseFontSize 9
-skinparam defaultFontName Roboto Condensed
+skinParam defaultFontName Roboto Condensed
 skinParam lifelineStrategy solid
 skinParam noteBackgroundColor #DDD
 skinParam noteFontSize 9
@@ -29,5 +32,6 @@ skinParam sequenceGroupHeaderFontColor #FFF
 skinParam sequenceGroupHeaderFontSize 10
 skinParam sequenceParticipantBorderThickness 1
 skinParam shadowing false
+skinParam SwimlaneBorderThickness 1
 
 skinParam linetype ortho

@@ -233,8 +233,8 @@ public class TDD extends XML {
      * @return openEHR Reference Model composition generated from the TDD
      * @throws UnsupportedTypeException when transforming a TDD with a type that isn't supported
      */
-    public Document toRM() throws UnsupportedTypeException {
-        log.trace("toRM({})", () -> "");
+    public Document toCanonical() throws UnsupportedTypeException {
+        log.trace("toCanonical({})", () -> "");
         DocumentBuilder builder;
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

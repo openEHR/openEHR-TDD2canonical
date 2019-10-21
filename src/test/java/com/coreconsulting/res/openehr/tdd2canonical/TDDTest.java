@@ -43,7 +43,7 @@ public class TDDTest {
         long t = System.currentTimeMillis();
         Document rm = null;
         try {
-            rm = tdd.toRM();
+            rm = tdd.toCanonical();
             log.debug("transformed_RAC_doc1_is_valid transformation took {}ms to complete",
                     () -> System.currentTimeMillis() - t);
             log.debug("transformed composition: \n" + XML.toString(rm));

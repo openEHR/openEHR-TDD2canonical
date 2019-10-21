@@ -1,0 +1,83 @@
+@startuml
+
+!include skinParam.wsd
+
+|TDD|
+|TDSRegistry|
+|TDS|
+|TransformerFactory|
+|AbstractTransformer|
+
+|TDD|
+start
+:Load TDD;
+:Get TDS locally using
+@template_id;
+|TDSRegistry|
+if (Is @template_id cached?) then (yes)
+  :Deserialize TDS from cache;
+else (no)
+  if (Is @template_id in local folder?) then (yes)
+    :Read TDS locally;
+    :Compute cache;
+  endif
+endif
+|TDD|
+if (Was TDS resolved locally?) then (yes)
+  :Skip TDS retrieval;
+else (no)
+  |TDSRegistry|
+  :Retrieve TDS from URI;
+  fork
+    :Compute cache in background;
+  end fork
+  |TDD|
+endif
+:Transform COMPOSITION to canonical
+using root XPath expression;
+repeat
+  :Introspect @archetype_node_id from TDS
+  using current XPath expression;
+  |TDS|
+  :Get cached XPath value;
+  |TDD|
+  if (is LOCATABLE?) then (yes)
+    :Get LOCATABLE transformer;
+    |TransformerFactory|
+    :Reflect concrete LocatableTransformer;
+    |TDD|
+    :Perform LOCATABLE transformation;
+    |AbstractTransformer|
+    :Apply LOCATABLE transformation;
+    |TDD|
+    :Introspect @type from TDS
+    using current XPath expression;
+    if (has type?) then (yes)
+      :Get concrete transformer;
+      |TransformerFactory|
+      if (@type has concrete transformer?) then (yes)
+        :Reflect concrete transformer
+        according to @type;
+      else (no)
+        :Throw UnsupportedTypeException;
+        stop
+      endif
+      |TDD|
+      :Perform type transformation;
+      |AbstractTransformer|
+      :Apply concrete transformation;
+      |TDD|
+    else (no)
+      stop
+    endif
+    :Get children elements;
+    :Clone current XPath expression
+    and append child fragment;
+  else (no)
+    stop
+  endif
+repeat while (Has children elements?) is (yes)
+
+end
+
+@enduml
