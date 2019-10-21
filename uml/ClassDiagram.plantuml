@@ -84,10 +84,22 @@
     }
   }
 
-  com.coreconsulting.res.openehr.tdd2canonical.exceptions.UnsupportedTypeException -up-|> java.lang.Exception
-  com.coreconsulting.res.openehr.tdd2canonical.TDD -up-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
-  com.coreconsulting.res.openehr.tdd2canonical.TDD o-- com.coreconsulting.res.openehr.tdd2canonical.TDS : tds
-  com.coreconsulting.res.openehr.tdd2canonical.TDS .down.|> java.io.Serializable
-  com.coreconsulting.res.openehr.tdd2canonical.TDS -up-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
+  com.coreconsulting.res.openehr.tdd2canonical.exceptions.UnsupportedTypeException -left|> java.lang.Exception
+  com.coreconsulting.res.openehr.tdd2canonical.transformer.TransformerFactory .left.|> com.coreconsulting.res.openehr.tdd2canonical.transformer.AbstractTransformer
+  com.coreconsulting.res.openehr.tdd2canonical.transformer.TransformerFactory .down.|> com.coreconsulting.res.openehr.tdd2canonical.exceptions.UnsupportedTypeException
+  com.coreconsulting.res.openehr.tdd2canonical.TDD -down-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
+  com.coreconsulting.res.openehr.tdd2canonical.TDD o-down- com.coreconsulting.res.openehr.tdd2canonical.TDS
+  com.coreconsulting.res.openehr.tdd2canonical.TDD .left.|> com.coreconsulting.res.openehr.tdd2canonical.util.RegEx
+  com.coreconsulting.res.openehr.tdd2canonical.TDD .right.|> com.coreconsulting.res.openehr.tdd2canonical.TDSRegistry
+  com.coreconsulting.res.openehr.tdd2canonical.TDD ..|> com.coreconsulting.res.openehr.tdd2canonical.exceptions.UnsupportedTypeException
+  com.coreconsulting.res.openehr.tdd2canonical.TDD .down.|> com.coreconsulting.res.openehr.tdd2canonical.transformer.TransformerFactory
+  com.coreconsulting.res.openehr.tdd2canonical.TDD .down.|> com.coreconsulting.res.openehr.tdd2canonical.transformer.AbstractTransformer
+  com.coreconsulting.res.openehr.tdd2canonical.TDS -down-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
+  com.coreconsulting.res.openehr.tdd2canonical.TDS -right-|> java.io.Serializable
+  com.coreconsulting.res.openehr.tdd2canonical.TDS .down.|> com.coreconsulting.res.openehr.tdd2canonical.util.Properties
+  com.coreconsulting.res.openehr.tdd2canonical.TDS .down.|> com.coreconsulting.res.openehr.tdd2canonical.util.Serializer
+  com.coreconsulting.res.openehr.tdd2canonical.TDSRegistry *-down- com.coreconsulting.res.openehr.tdd2canonical.TDS
+  com.coreconsulting.res.openehr.tdd2canonical.TDSRegistry .down.|> com.coreconsulting.res.openehr.tdd2canonical.util.Properties
+  com.coreconsulting.res.openehr.tdd2canonical.TDSRegistry .down.|> com.coreconsulting.res.openehr.tdd2canonical.util.Serializer
 
 @enduml
