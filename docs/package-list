@@ -1,4 +1,4 @@
-com.coreconsulting.res.openehr.tdd2rm
-com.coreconsulting.res.openehr.tdd2rm.exceptions
-com.coreconsulting.res.openehr.tdd2rm.transformer
-com.coreconsulting.res.openehr.tdd2rm.util
+com.coreconsulting.res.openehr.tdd2canonical
+com.coreconsulting.res.openehr.tdd2canonical.exceptions
+com.coreconsulting.res.openehr.tdd2canonical.transformer
+com.coreconsulting.res.openehr.tdd2canonical.util

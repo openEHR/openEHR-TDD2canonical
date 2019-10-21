@@ -1,0 +1,93 @@
+@startuml
+
+!include skinParam.wsd
+
+  namespace com.coreconsulting.res.openehr.tdd2canonical {
+    namespace exceptions {
+      class UnsupportedTypeException {
+      }
+    }
+    
+    namespace transformer {
+      abstract class AbstractTransformer {
+      type: String
+      transformElement(TDD, Element, String, String, StringBuilder): void
+      }
+
+
+
+      class TransformerFactory {
+        transformers: Map<String, AbstractTransformer>
+        getTransformer(String): AbstractTransformer
+      }
+    }
+    
+    namespace util {
+      class Properties {
+        properties: Properties
+        getProperty(String): String
+      }
+      
+      class RegEx {
+        getFirstMatch(String, String): String
+        getMatches(String, String): List<String>
+      }
+      
+      class Serializer {
+        read(InputStream): Object
+        write(OutputStream, Object): void
+      }
+      
+      class XML {
+        xpath: XPath
+        xml: Document
+        getChildElements(Node): List<Element>
+        getXPathAsString(String): String
+        getXpathAsNodeList(String): NodeList
+        toString(): String
+        toString(String): String
+      }
+    }
+    
+    class TDD {
+      OPENEHR_NS_PREFIX: String
+      OPENEHR_NS: String
+      OPENEHR_RM_VERSION: String
+      OPENEHR_NS_LOCATION: String
+      OPENEHR_XSI_LOCATION: String
+      tds: TDS
+      templateId: String
+      getNamespacePrefix(): String
+      getRMVersion(): String
+      getTDSLocation(): String
+      getTemplateId(): String
+      getTDS(): TDS
+      insertNameAsFirstChild(Element, String): void
+      insertNameBeforeElement(Element, Element, String): void
+      toRM(): Document
+      transformNode(): void
+    }
+    
+    class TDS {
+      templateId: String
+      loadNodeCache(): void
+      loadElementPaths(Element, StringBuilder, StringBuilder): void
+      getCachedXPathAsString(String): String
+      getTemplateId(): String
+    }
+    
+    class TDSRegistry {
+      templateCache: Map<String, TDS>
+      fromTDSLocation(String): TDS
+      fromTemplateId(String): TDS
+      fromCache(String): TDS
+    }
+  }
+
+  com.coreconsulting.res.openehr.tdd2canonical.exceptions.UnsupportedTypeException -up-|> java.lang.Exception
+  com.coreconsulting.res.openehr.tdd2canonical.TDD -up-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
+  com.coreconsulting.res.openehr.tdd2canonical.TDD o-- com.coreconsulting.res.openehr.tdd2canonical.TDS : tds
+  com.coreconsulting.res.openehr.tdd2canonical.TDS .down.|> java.io.Serializable
+  com.coreconsulting.res.openehr.tdd2canonical.TDS -up-|> com.coreconsulting.res.openehr.tdd2canonical.util.XML
+
+@enduml

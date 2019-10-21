@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.coreconsulting.res</groupId>
-    <artifactId>openehr-tdd2rm</artifactId>
+    <artifactId>openehr-tdd2canonical</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <build>
         <plugins>

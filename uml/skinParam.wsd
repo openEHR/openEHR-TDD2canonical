@@ -1,0 +1,33 @@
+skinParam actorBackgroundColor #FFF
+skinparam actorFontSize 10
+skinParam arrowColor #000
+skinParam arrowFontSize 10
+skinParam backgroundColor transparent
+skinParam ClassBackgroundColor #FFF
+skinParam ClassBorderThickness 1
+skinParam DatabaseBackgroundColor #FFF
+skinParam DatabaseFontName Roboto Condensed
+skinParam DatabaseFontSize 9
+skinparam defaultFontName Roboto Condensed
+skinParam lifelineStrategy solid
+skinParam noteBackgroundColor #DDD
+skinParam noteFontSize 9
+skinParam objectBackgroundColor #FFF
+skinParam objectBorderThickness 1
+skinParam PackageBorderThickness 1
+skinParam participantBackgroundColor #FFF
+skinParam participantFontSize 10
+skinParam sequenceActorBorderThickness 1
+skinParam SequenceBoxBackgroundColor #EEE
+skinParam SequenceBoxBorderColor transparent
+skinParam SequenceBoxFontSize 10
+skinParam SequenceBoxFontStyle plain
+skinParam SequenceGroupBackgroundColor #000
+skinParam SequenceGroupBorderThickness 1
+skinParam sequenceGroupFontSize 10
+skinParam sequenceGroupHeaderFontColor #FFF
+skinParam sequenceGroupHeaderFontSize 10
+skinParam sequenceParticipantBorderThickness 1
+skinParam shadowing false
+
+skinParam linetype ortho
