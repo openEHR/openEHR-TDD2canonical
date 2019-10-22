@@ -64,7 +64,7 @@
       getTDS(): TDS
       insertNameAsFirstChild(Element, String): void
       insertNameBeforeElement(Element, Element, String): void
-      toRM(): Document
+      toCanonical(): Document
       transformNode(): void
     }
     
