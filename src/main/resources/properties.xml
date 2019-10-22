@@ -4,20 +4,5 @@
     <entry key="CACHE_FOLDER">./src/main/resources/cache</entry>
     <entry key="TEMPLATE_FOLDER">./src/main/resources/templates</entry>
     <!-- @template_id to file name (expected to be within $CACHE_FOLDER) mappings -->
-    <entry key="CMD.v2">CMD.xsd</entry>
-    <entry key="Resumo de consulta ab_CN1_v2.0.oet">CN1.xsd</entry>
-    <entry key="SumariodeAlta_Resolucao_CIT_2018">CN2-CIT.xsd</entry>
-    <entry key="Sumário de Alta v1.0">CN2-HAOC.xsd</entry>
-    <entry key="SumariodeAlta.v4.0">CN2-SHOWROOM.xsd</entry>
-    <entry key="Sumário de alta de internação_CN2_v.2">CN2.xsd</entry>
-    <entry key="Sumário de saúde do paciente_CN3_v2.0">CN3.xsd</entry>
-    <entry key="RegistroAtendimentoClínico_CIT_2018">CN4-CIT.xsd</entry>
-    <entry key="Registro de Atendimento Clínico v1.0">CN4-HAOC.xsd</entry>
-    <entry key="RegistroAtendimentoClínico.v4.0">CN4-SHOWROOM.xsd</entry>
-    <entry key="RegistroAtendimentoClinico_v2">CN4.xsd</entry>
-    <entry key="Referencia_CN5_v2">CN5.xsd</entry>
-    <entry key="Registro de Imunobiológico_CN6_v2">CN6.xsd</entry>
-    <entry key="HemogramaCompleto.v1.0">CN7-SHOWROOM-hemograma.xsd</entry>
-    <entry key="Lipidograma.v1.0">CN7-SHOWROOM-lipidrograma.xsd</entry>
-    <entry key="Resultado de Exames_CN7_v2">CN7.xsd</entry>
+    <entry key="Registro de Atendimento Clínico v1.0">CN4-INTEROP.xsd</entry>
 </properties>
