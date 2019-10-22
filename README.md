@@ -70,7 +70,7 @@ are instances of ``AbstractTransformer`` are not represented, as they are abstra
 
 ![ClassDiagram.png](./uml/ClassDiagram.png)
 
-The [source](./uml/Flow.plantuml) was written and processed used [PlantUML](http://plantuml.com/).
+The [source](./uml/ClassDiagram.plantuml) was written and processed used [PlantUML](http://plantuml.com/).
 
 ## Getting started
 Let's start with a few notes about the project:
