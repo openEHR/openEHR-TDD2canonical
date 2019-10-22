@@ -1,4 +1,4 @@
-#openEHR-TDD2canonical
+# openEHR-TDD2canonical
 
 This repository provides a *work in progress* solution to convert openEHR compositions serialized as TDD (*Template
  Data Document*) to canonical XML, so that they comply to the Reference Model (see
@@ -6,7 +6,7 @@ This repository provides a *work in progress* solution to convert openEHR compos
   [Ricardo Gonçalves](mailto:ricardofago@gmail.com) @ 
   [Core Consulting (Brasília, Brazil)](http://coreconsulting.com.br).
 
-##Introduction
+## Introduction
 
 The TDD is a format used to serialize openEHR compositions using XML documents that are instances of a XML schema
 known as TDS (*Template Data Schema*). It enforces all restrictions specified within a template and its archetypes,
@@ -23,7 +23,7 @@ the *de facto* community modelling tool for openEHR template maintainers, we exp
 that was generated using the transformation shipped with it (see ``./Transforms/tds-default.xsl`` from the installation
  directory).  
 
-##Architecture
+## Architecture
 
 The idea behind the TDD to canonical transformation is pretty simple. We traverse the TDD document recursively and
 perform any required transformations on the nodes we visit. Due to the complexity and legacy nature of 
@@ -46,7 +46,7 @@ it and are provided through a factory indexed by the type name. Feel free to cre
 unsupported type (be sure to provide the TDD and its TDS), or even better, to raise a pull request sharing your
 contribution to the current solution.
 
-###Activity diagram
+### Activity diagram
 
 The diagram below introduces a more detailed flow of the transformation logic. It doesn't cover all the invocation
 stack, specially for utility classes (RegEx, XPath, serialization, etc.), but it provides a comprehensible overview
@@ -60,10 +60,10 @@ Even though the activity diagram implies preorder traversal for clarity, the act
  traversal, so
  that the transformation of a node doesn't interfere with its ancestors' paths.
 
-###Class diagram
+### Class diagram
 
 The diagram below shows the class definitions and relationships. More details are available in the
-[JavaDoc](https://ricardofago.github.io/openehr-TDD2canonical). Be noted that the concrete transformers that
+[JavaDoc](https://ricardofago.github.io/openehr-TDD2canonical/docs). Be noted that the concrete transformers that
 are instances of ``AbstractTransformer`` are not represented, as they are abstracted to the transformation caller
 (``TDD.transformNode(Node, StringBuilder)``), and they may include additional fields or methods internally if
  appropriate.
@@ -72,7 +72,7 @@ are instances of ``AbstractTransformer`` are not represented, as they are abstra
 
 The [source](./uml/Flow.plantuml) was written and processed used [PlantUML](http://plantuml.com/).
 
-##Getting started
+## Getting started
 Let's start with a few notes about the project:
 * Maven (this is a Maven project, we use JUnit 5 to coordinate and assert the transformation)
 * Logging (we use Log4j2 with asynchronous logging and lambdas to reduce the overhead)
@@ -94,7 +94,7 @@ Make sure to specify the properties
 You can run
 ``mvn test``
 to perform all tests or
-``mvn test -Dtest=TDDTest#transformed_RAC_doc1_is_valid``
+``mvn test -Dtest=TDDTest# transformed_RAC_doc1_is_valid``
 to perform the test currently available, which is the major transformation driving the development from the use case in
 Brazil.
 
@@ -103,11 +103,11 @@ itself, but instead because the standard XML schema validation library shipped w
 abstractions (xsi:type, xsi:schemaLocation), but the resulting composition can be successfully validated with more
 capable tools.
 
-##Extensions and optimizations
+## Extensions and optimizations
 
 In this section we shortly introduce how to extend and optimize the solution.
 
-###Properties
+### Properties
 
 The solution loads properties from a file that can me provided dynamically (setting the
 ``-Dproperties=$PROPERTIES_FILE``, by default ``./src/main/resources/properties.xml``
@@ -121,7 +121,7 @@ TEMPLATE_FOLDER|Folder in which the solution looks for the TDS file locally for 
 In addition to the entries above, specially when looking for a TDS file in $TEMPLATE_FOLDER, the solution looks for a
 property with a key equals to the @template_id, which holds the file name in its value.
 
-###Caching and local folders
+### Caching and local folders
 
 As mentioned before, this project caches de TDS instances to drastically improve the transformation execution time.
 This is based on [FST](https://github.com/RuedigerMoeller/fast-serialization), an optimized drop-in replacement for
@@ -138,7 +138,7 @@ If we fail to get the TDS instance from cache and to load it from the local fold
 it from a remote URI. Then, the TDD is expected to have a ``xsi:schemaLocation`` at the root element mapping the 
 ``http://schemas.oceanehr.com/templates`` namespace to a valid XML schema.
 
-###Transformers
+### Transformers
 
 Every concrete transformer is capable of transforming an element from a TDD document matching a type from the openEHR
 Reference Model into its canonical form, by extending ``AbstractTransformer`` and implementing the ``transformElement
@@ -153,7 +153,7 @@ one we need to register it.
 
 It should also be possible to scan the package for transformers during runtime.
 
-##Roadmap
+## Roadmap
 * Refactor XML schema validation in tests to support XSI abstractions
 * Extend type support with more TDSs and catalog the type coverage
 (maybe we relax the UnsupportedTypeException at a more mature stage)
