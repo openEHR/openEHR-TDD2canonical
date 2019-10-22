@@ -63,7 +63,7 @@ Even though the activity diagram implies preorder traversal for clarity, the act
 ### Class diagram
 
 The diagram below shows the class definitions and relationships. More details are available in the
-[JavaDoc](https://ricardofago.github.io/openehr-TDD2canonical/docs). Be noted that the concrete transformers that
+[JavaDoc](https://ricardofago.github.io/openEHR-TDD2canonical/docs). Be noted that the concrete transformers that
 are instances of ``AbstractTransformer`` are not represented, as they are abstracted to the transformation caller
 (``TDD.transformNode(Node, StringBuilder)``), and they may include additional fields or methods internally if
  appropriate.
