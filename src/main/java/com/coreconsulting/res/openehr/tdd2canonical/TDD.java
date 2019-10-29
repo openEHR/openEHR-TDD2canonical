@@ -98,11 +98,10 @@ public class TDD extends XML {
     }
 
     /**
-     * Parses the openEHR namespace prefix used used in the TDD by matching the namespace declaration of {
-     * {@link #OPENEHR_NS}}. Once parsed, it is stored as a field for future use. If {@link #OPENEHR_NS} is the
-     * default namespace, it is reassigned to the prefix "oe:" to prevent XSI issues with abstract types (@xsi:type).
+     * Parses the openEHR namespace prefix used used in the TDD by matching the namespace declaration of
+     * {@link #OPENEHR_NS}. Once parsed, it is stored as a field for future use.
      *
-     * @return openEHR namespace prefix.
+     * @return openEHR namespace prefix
      */
     public String getNamespacePrefix() {
         log.trace("getNamespacePrefix({})", () -> "");
@@ -115,8 +114,8 @@ public class TDD extends XML {
                 String key = attribute.getNodeName();
                 String value = attribute.getNodeValue();
                 if (key.equals("xmlns") && value.equals(OPENEHR_NS)) {
-                    // If openEHR is the default namespace (no prefix), we reassign it to oe: to prevent XSI issues
-                    OPENEHR_NS_PREFIX = "oe:";
+                    // Default namespace
+                    OPENEHR_NS_PREFIX = "";
                     log.debug("added OPENEHR_NS_PREFIX={} for OPENEHR_NS={}", () -> OPENEHR_NS_PREFIX,
                             () -> OPENEHR_NS);
                     break;

@@ -58,7 +58,9 @@ public class XML {
     public XML() {
         log.trace("XML({})", () -> "");
         try {
-            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            builder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             log.error("error creating DOM builder", e);
         }

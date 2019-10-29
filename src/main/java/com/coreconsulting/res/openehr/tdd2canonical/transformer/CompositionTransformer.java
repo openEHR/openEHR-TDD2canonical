@@ -4,6 +4,7 @@ import com.coreconsulting.res.openehr.tdd2canonical.TDD;
 import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.util.List;
@@ -31,14 +32,14 @@ public class CompositionTransformer extends AbstractTransformer {
         List<Element> children = tdd.getChildElements(element);
         for (int i = children.size() - 1; i >= 0; i--) {
             Node child = children.get(i);
-            // rename all the children from the last one until we reach "context"
+            // Rename all the children from the last one until we reach "context"
             if (child.getNodeName().equals("context"))
                 break;
             log.trace("renaming {} to content", () -> child.getNodeName());
             document.renameNode(child, null, "content");
         }
 
-        /* since we are doing a postorder traversal, the COMPOSITION is the last element transformed, therefore we
+        /* Since we are doing a postorder traversal, the COMPOSITION is the last element transformed, therefore we
         can now fix the namespaces and prefixes */
         transformNamespaces(tdd, element);
     }
@@ -51,11 +52,23 @@ public class CompositionTransformer extends AbstractTransformer {
      * @param element {@link Element} to transform the namespace prefix and descend into
      */
     protected void transformNamespacePrefix(TDD tdd, Element element) {
+        log.trace("transformNamespacePrefix({}, {})", () -> tdd.getTemplateId(), () -> element.getNodeName());
         for (Element child : tdd.getChildElements(element))
             transformNamespacePrefix(tdd, child);
-        if (element.getNodeName().startsWith(tdd.getNamespacePrefix()) == false)
-            element.getOwnerDocument().renameNode(element, TDD.OPENEHR_NS,
-                    tdd.getNamespacePrefix() + element.getNodeName());
+        // For now, hardcode the namespace declaration as the default for compatibility with EtherCIS and EHRbase
+        String nodeName = element.getNodeName();
+        if (nodeName.contains(":")) {
+            String localName = nodeName.substring(nodeName.indexOf(":") + 1);
+            element.getOwnerDocument().renameNode(element, null, localName);
+        }
+        // Transform xsi:type, if present
+        String type = element.getAttribute("xsi:type");
+        if (type.isEmpty() == false && type.contains(":")) {
+            // For now, hardcode the namespace declaration as the default for compatibility with EtherCIS and EHRbase
+            type = type.substring(type.indexOf(":") + 1);
+            /*type = tdd.getNamespacePrefix() + type.substring(type.indexOf(":") + 1);*/
+            element.setAttribute("xsi:type", type);
+        }
     }
 
     /**
@@ -68,10 +81,14 @@ public class CompositionTransformer extends AbstractTransformer {
      * @param composition root {@link Element} that holds the namespace declarations
      */
     protected void transformNamespaces(TDD tdd, Element composition) {
+        log.trace("transformNamespaces({}, {})", () -> tdd.getTemplateId(), () -> composition.getNodeName());
+        // Remove @template_id, which in canonical format is represented within archetype_details
         composition.removeAttribute("template_id");
-        composition.removeAttribute("xmlns");
-        composition.removeAttribute("xmlns:" + tdd.getNamespacePrefix().substring(0,
-                tdd.getNamespacePrefix().length() - 1));
+        // For now, hardcode the namespace declaration as the default for compatibility with EtherCIS and EHRbase
+        if (tdd.getNamespacePrefix().isEmpty() == false)
+            composition.removeAttribute("xmlns:" + tdd.getNamespacePrefix().substring(0,
+                    tdd.getNamespacePrefix().length() - 1));
+        composition.setAttribute("xmlns", TDD.OPENEHR_NS);
         composition.setAttribute("xsi:schemaLocation", TDD.OPENEHR_XSI_LOCATION);
         transformNamespacePrefix(tdd, composition);
     }
